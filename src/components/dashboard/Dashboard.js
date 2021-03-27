@@ -34,7 +34,7 @@ export default function Dashboard() {
                     </Form>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Item><Nav.Link href="/">Profile</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/profile">Profile</Nav.Link></Nav.Item>
                             <Nav.Item>
                                 <Button primary class="logoutBtn" variant="link" onClick={handleLogout}>Logout</Button>
                             </Nav.Item>
@@ -44,15 +44,15 @@ export default function Dashboard() {
             </Header>
             <StyledSideNav>
                 <Menu borderless vertical stackable fixed="left" className="side-nav">
-                    <SideBarItem highlight={true} label='Home' icon='home' />
-                    <SideBarItem label='Movies and Shows' icon='film' />
-                    <SideBarItem label='Trending' icon='fire' />
-                    <SideBarItem label='History' icon='history' />
+                    <Link to="/"><SideBarItem highlight={true} label='Home' icon='home' /></Link>
+                    <Link to="/movies"><SideBarItem label='Movies' icon='film' /></Link>
+                    <Link to="/tvshows"><SideBarItem label='TV Shows' icon='television' /></Link>
+                    <Link to="trending"><SideBarItem label='Trending' icon='fire' /></Link>
                     <SideBarItem label='Watch later' icon='clock' />
-                    <SideBarItem label='Favourites' icon='favorite' />
-                    <SideBarItem label='Subscriptions' icon='shopping cart' />
-                    <SideBarItem label='Help' icon='help circle' />
-                    <SideBarItem label='Send feedback' icon='comment' />
+                    <Link to="favourites"><SideBarItem label='Favourites' icon='favorite' /></Link>
+                    <Link to="/mysubscriptions"><SideBarItem label='My Subscriptions' icon='shopping cart' /></Link>
+                    <Link to="/indivcrew"><SideBarItem label='Help' icon='help circle' /></Link>
+                    <Link to="indivmovie"><SideBarItem label='Send feedback' icon='comment' /></Link>
                 </Menu>
             </StyledSideNav>
         </Container>
