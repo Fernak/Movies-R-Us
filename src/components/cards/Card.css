@@ -1,0 +1,60 @@
+/*Make A Grid Of Boxes In CSS | 2020 https://www.youtube.com/watch?v=fKlimmu1pPM*/
+.pCard{ 
+    margin: 15px;
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    overflow: hidden;
+    height: 288px;
+    --webkit-box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
+}
+
+.pCard:hover{
+    background-color:#ebebeb;
+}
+
+.grid {
+    min-height: 100%;
+    margin-left: 270px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.grid > div {
+    flex-basis: calc(20%-40px);
+}
+
+.cardTitle{
+    font-size: small;
+    font-weight: bold;
+    min-height: 17px;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+}
+
+.cardText{
+    font-size: x-small;
+}
+
+.favBtn{
+    margin-left: 80px;
+    height: 20px;
+    width: 10px;
+    color: #9FFFCB;
+}
+
+.cCard{ 
+    margin: 15px;
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    overflow: hidden;
+    height: 238px;
+    --webkit-box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
+}
+
+.cCard:hover{
+    background-color:#ebebeb;
+}
