@@ -1,8 +1,6 @@
 import React from 'react'
 import {Card, Button} from 'react-bootstrap'
 import './Card.css'
-import { Link, NavLink } from 'react-router-dom'
-
 
 export default function ProgramCard(){
     const cardContent = [
@@ -18,6 +16,12 @@ export default function ProgramCard(){
         {image: "https://upload.wikimedia.org/wikipedia/en/0/0a/Inside_Out_%282015_film%29_poster.jpg", title: "Inside Out ", service: "Netflix", genre: "Family/Comedy", year:"2015"}
     ]; 
 
+    /**
+     * References: 
+     * To create individual cards: https://react-bootstrap.github.io/components/cards/ 
+     * To populate each card with information from card content object: 
+     *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
+     */
     const renderCard = (card, index) => {
         return (
             <Card style={{ width: '10rem'}} key={index} className="pCard">

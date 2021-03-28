@@ -1,4 +1,7 @@
-/*Make A Grid Of Boxes In CSS | 2020 https://www.youtube.com/watch?v=fKlimmu1pPM*/
+/*
+ * References: 
+ *  To create grid for card layout: Make A Grid Of Boxes In CSS | 2020 https://www.youtube.com/watch?v=fKlimmu1pPM 
+ */
 .pCard{ 
     margin: 15px;
     background-color: white;
@@ -25,6 +28,10 @@
     flex-basis: calc(20%-40px);
 }
 
+/* 
+ * References: 
+ *  To hide text and add ... : https://stackoverflow.com/questions/37132752/adding-when-text-is-too-long-in-a-div-with-only-css
+*/
 .cardTitle{
     font-size: small;
     font-weight: bold;

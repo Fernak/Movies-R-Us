@@ -18,6 +18,7 @@ import Trending from "./dashboard/pages/Trending"
 import Favourites from "./dashboard/pages/Favourites"
 import IndivCrew from "./dashboard/pages/IndivCrew"
 import IndivMovie from "./dashboard/pages/IndivMovie"
+import IndivTVShow from "./dashboard/pages/IndivTVShow"
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <PrivateRoute exact path="/favourites" component={Favourites} />
           <PrivateRoute exact path="/indivcrew" component={IndivCrew} />
           <PrivateRoute exact path="/indivMovie" component={IndivMovie} />
+          <PrivateRoute exact path="/indivtvshow" component={IndivTVShow} />
           <Container
             className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "100vh" }}

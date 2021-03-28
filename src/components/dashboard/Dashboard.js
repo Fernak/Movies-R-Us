@@ -48,7 +48,7 @@ export default function Dashboard() {
                     <Link to="/movies"><SideBarItem label='Movies' icon='film' /></Link>
                     <Link to="/tvshows"><SideBarItem label='TV Shows' icon='television' /></Link>
                     <Link to="trending"><SideBarItem label='Trending' icon='fire' /></Link>
-                    <SideBarItem label='Watch later' icon='clock' />
+                    <Link to="indivtvshow"><SideBarItem label='Watch later' icon='clock' /></Link>
                     <Link to="favourites"><SideBarItem label='Favourites' icon='favorite' /></Link>
                     <Link to="/mysubscriptions"><SideBarItem label='My Subscriptions' icon='shopping cart' /></Link>
                     <Link to="/indivcrew"><SideBarItem label='Help' icon='help circle' /></Link>

@@ -10,6 +10,11 @@ export default function SubCard(){
         {image: "https://support.apple.com/content/dam/edam/applecare/images/en_US/psp/featured-section-appletv-plus_2x.jpg", name: "Apple TV+", location: "Canada", price:"5.99 CAD"}
     ]; 
 
+    /**
+     * References: 
+     * To populate each card with information from card content object: 
+     *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
+     */
     const renderCard = (card, index) => {
         return (
             <div>
@@ -34,7 +39,10 @@ const CardTitle = styled.div`
     font-weight: bold;
 `
 
-/**Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
+/*
+ * References: 
+ *  To create box for every subscription service: 
+ *      Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
 const Box = styled.div`
     margin-top: 30px; 
     margin-bottom: 20px; 

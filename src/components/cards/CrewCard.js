@@ -15,6 +15,12 @@ export default function ProgramCard(){
         {image: "https://m.media-amazon.com/images/M/MV5BMTc1MDI0MDg1NV5BMl5BanBnXkFtZTgwMDM3OTAzMTE@._V1_UY209_CR2,0,140,209_AL_.jpg", name: "Cate Blanchett", role: "Actree"}
     ]; 
 
+    /**
+     * References: 
+     * To create individual cards: https://react-bootstrap.github.io/components/cards/ 
+     * To populate each card with information from card content object: 
+     *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
+     */
     const renderCard = (card, index) => {
         return (
             <Card style={{ width: '10rem'}} key={index} className="cCard">

@@ -22,12 +22,18 @@ export default function Movies() {
                         <h3>Pesonal Information </h3>
                     </Title>
                     <Text>
+                        <h6>Name: randomr</h6>
+                        <h6>Username: randomr</h6>
+                        <h6>Email: randomr@email.com</h6>
                         <h6>Age: 20</h6>
                         <h6>Gender: M</h6>
+                        <h6>Languages:</h6>
+                        <h6 style={{marginLeft: "30px"}}>English</h6>
+                        <h6 style={{marginLeft: "30px"}}>French</h6>
                     </Text>
                     <EditLink><Link>Edit Information</Link></EditLink>
                 </Box1>
-                <Box2>
+                {/*<Box2>
                     <Title>
                         <h3>Languages</h3>
                     </Title>
@@ -36,9 +42,8 @@ export default function Movies() {
                         <h6>French</h6>
                     </Text>
                     <EditLink><Link>Edit Languages</Link></EditLink>
-                </Box2>
+                </Box2>*/}
             </div>
-
         </>
     )
 }
@@ -69,7 +74,7 @@ const Box1 = styled.div`
     box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
     margin-left: 400px; 
     background: white;
-    height: 120px; 
+    height: 260px; 
     width: 800px; 
 `
 
