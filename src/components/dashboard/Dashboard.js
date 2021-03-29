@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Nav, Navbar, Form, Alert } from 'react-bootstrap'
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import { Input, Label, Menu, Button } from 'semantic-ui-react'
+import { Input, Label, Menu, Button, Divider } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import SideBarItem from "./SideBarItem"
@@ -34,7 +34,9 @@ export default function Dashboard() {
                     </Form>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Item><Nav.Link href="/profile">Profile</Nav.Link></Nav.Item>
+                            <ProfileLink>
+                                <Nav.Item><Link to="/profile">Profile</Link></Nav.Item>
+                            </ProfileLink>
                             <Nav.Item>
                                 <Button primary class="logoutBtn" variant="link" onClick={handleLogout}>Logout</Button>
                             </Nav.Item>
@@ -44,15 +46,21 @@ export default function Dashboard() {
             </Header>
             <StyledSideNav>
                 <Menu borderless vertical stackable fixed="left" className="side-nav">
-                    <Link to="/"><SideBarItem highlight={true} label='Home' icon='home' /></Link>
-                    <Link to="/movies"><SideBarItem label='Movies' icon='film' /></Link>
-                    <Link to="/tvshows"><SideBarItem label='TV Shows' icon='television' /></Link>
-                    <Link to="trending"><SideBarItem label='Trending' icon='fire' /></Link>
-                    <Link to="indivtvshow"><SideBarItem label='Watch later' icon='clock' /></Link>
-                    <Link to="favourites"><SideBarItem label='Favourites' icon='favorite' /></Link>
-                    <Link to="/mysubscriptions"><SideBarItem label='My Subscriptions' icon='shopping cart' /></Link>
-                    <Link to="/indivcrew"><SideBarItem label='Help' icon='help circle' /></Link>
-                    <Link to="indivmovie"><SideBarItem label='Send feedback' icon='comment' /></Link>
+                    <SideBarItem path='/' label='Home' icon='home' />
+                    <SideBarItem path='/movies' label='Movies' icon='film' />
+                    <SideBarItem path='/tvshows' label='Television' icon='tv' />
+                    <SideBarItem path='schedule' label='Schedule' icon='calendar alternate outline' />
+                    <SideBarItem path='/trending' label='Trending' icon='fire' />
+                    <Divider />
+                    <SidebarHeader>Library</SidebarHeader>
+                    <SideBarItem label='History' icon='history' />
+                    <SideBarItem label='Watch later' icon='clock' />
+                    <SideBarItem path='favourites' label='Favourites' icon='favorite' />
+                    <Divider />
+                    <SideBarItem path='/subscriptions' label='Subscriptions' icon='shopping cart' />
+                    <Divider />
+                    <SideBarItem label='Help' icon='help circle' />
+                    <SideBarItem label='Send feedback' icon='comment' />
                 </Menu>
             </StyledSideNav>
         </Container>
@@ -108,4 +116,14 @@ const StyledSideNav = styled.div`
         .side-nav.ui.vertical.menu {
             width: 200px;
         }
+`;
+
+const SidebarHeader = styled.text`
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 5px;
+`;
+
+const ProfileLink = styled.text`
+    padding: 10px 10px 0 0;
 `;
