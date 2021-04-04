@@ -1,9 +1,10 @@
 import React from 'react'
 import {Card, Button} from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import './Card.css'
 
 
-export default function ProgramCard(){
+export default function CrewCard(){
     const cardContent = [
         {image: "https://m.media-amazon.com/images/M/MV5BMTQzMzg1ODAyNl5BMl5BanBnXkFtZTYwMjAxODQ1._V1_SX150_CR0,0,150,150_.jpg", name: "Al Pacino", role: "Actor"},
         {image: "https://m.media-amazon.com/images/M/MV5BMjAwNDU3MzcyOV5BMl5BanBnXkFtZTcwMjc0MTIxMw@@._V1_SX150_CR0,0,150,150_.jpg", name: "Robert De Niro", role: "Actor"},
@@ -23,14 +24,16 @@ export default function ProgramCard(){
      */
     const renderCard = (card, index) => {
         return (
-            <Card style={{ width: '10rem'}} key={index} className="cCard">
+            <Link to="indivcrew">
+                <Card style={{ width: '10rem'}} key={index} className="cCard">
                 <Card.Img variant="top" src={card.image} style={{height: "150px"}}/>
                 <Card.Body>
                     <Card.Text style={{height: '0rem'}} className="cardTitle">{card.name}</Card.Text>
                     <Card.Text style={{height: '0rem'}} className="cardText">{card.role}</Card.Text>
-                    <Button className="favBtn">+</Button>
+                    <Button variant="secondary" className="favBtn">+</Button>
                     </Card.Body>
             </Card>
+            </Link>
         ); 
     }; 
     return <div className="grid">{cardContent.map(renderCard)}</div>; 

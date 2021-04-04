@@ -54,13 +54,13 @@ export default function Dashboard() {
                     <Divider />
                     <SidebarHeader>Library</SidebarHeader>
                     <SideBarItem label='History' icon='history' />
-                    <SideBarItem label='Watch later' icon='clock' />
+                    <SideBarItem path='Watch later' label='Watch later' icon='clock' />
                     <SideBarItem path='favourites' label='Favourites' icon='favorite' />
                     <Divider />
                     <SideBarItem path='/subscriptions' label='Subscriptions' icon='shopping cart' />
                     <Divider />
-                    <SideBarItem label='Help' icon='help circle' />
-                    <SideBarItem label='Send feedback' icon='comment' />
+                    <SideBarItem path='Help' label='Help' icon='help circle' />
+                    <SideBarItem path='Send Feedback' label='Send feedback' icon='comment' />
                 </Menu>
             </StyledSideNav>
         </Container>

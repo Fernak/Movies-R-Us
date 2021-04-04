@@ -47,9 +47,11 @@
 
 .favBtn{
     margin-left: 80px;
-    height: 20px;
-    width: 10px;
-    color: #9FFFCB;
+    min-height: 20px;
+    min-width: 10px;
+    text-align: center;
+    vertical-align: center;
+    padding: 0px;
 }
 
 .cCard{ 

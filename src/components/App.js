@@ -31,12 +31,12 @@ function App() {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/movies" component={Movies} />
           <PrivateRoute exact path="/tvshows" component={TVShows} />
-          <PrivateRoute exact path="/mysubscriptions" component={Subscriptions} />
+          <PrivateRoute exact path="/subscriptions" component={Subscriptions} />
           <PrivateRoute exact path="/trending" component={Trending} />
           <PrivateRoute exact path="/favourites" component={Favourites} />
           <PrivateRoute exact path="/indivcrew" component={IndivCrew} />
-          <PrivateRoute exact path="/indivMovie" component={IndivMovie} />
-          <PrivateRoute exact path="/indivtvshow" component={IndivTVShow} />
+          <PrivateRoute exact path="/indivmovie/:Uid" component={IndivMovie} />
+  <PrivateRoute exact path="/indivtvshow" component={IndivTVShow} />
           <Container
             className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "100vh" }}
@@ -45,7 +45,7 @@ function App() {
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
-            </div>
+            </div> 
           </Container>
         </Switch>
       </AuthProvider>
