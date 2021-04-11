@@ -12,7 +12,7 @@ export default function Movies() {
     const [programs, setTvshows] = useState([]); 
 
     useEffect(()=>{
-        fetch('/tvshows').then(response => 
+        fetch('/programs?Type=TV Show').then(response => 
             response.json()).then(data => { 
                 setTvshows(data); 
             }); 

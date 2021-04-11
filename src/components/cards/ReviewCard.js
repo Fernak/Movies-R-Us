@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Rating} from 'semantic-ui-react'
 
-export default function SubCard(){
-    const cardContent = [
+export default function ReviewCards({programReviews}){
+    /**const cardContent = [
         {image: "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=6&m=1223671392&s=612x612&w=0&h=NGxdexflb9EyQchqjQP0m6wYucJBYLfu46KCLNMHZYM=", name: "Random", date: "March 26, 2021", rating:"8/10", description:"Good!!"}, 
         {image: "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=6&m=1223671392&s=612x612&w=0&h=NGxdexflb9EyQchqjQP0m6wYucJBYLfu46KCLNMHZYM=", name: "Bob", date: "March 26, 2021", rating:"8/10", description:"Awesome!"}, 
-    ]; 
+    ]; */ 
 
     /**
      * References: 
@@ -17,25 +18,25 @@ export default function SubCard(){
             <div>
                 <Box>
                     <Top>
-                        <img style={{width: "40px", height: "40px", marginLeft: "15px"}} src={card.image} alt=""/>   
+                        <img style={{width: "40px", height: "40px", marginLeft: "15px"}} src={card.Image} alt=""/>   
                         <div>
-                            <h3 style={{marginTop: "0px", marginLeft: "10px", marginBottom: "0px"}}>{card.name}</h3>
+                            <h3 style={{marginTop: "0px", marginLeft: "10px", marginBottom: "0px"}}>{card.Author}</h3>
                             <div>
-                                <h5 style={{marginTop: "0px", marginLeft: "20px",marginBottom: "0px"}}>{card.rating}</h5>
+                                <Rating style={{marginTop: "5px", marginLeft: "20px",marginBottom: "0px"}} rating={card.Rating} maxRating={5}></Rating>
                             </div>
                         </div>
                         <div>
-                            <h5 style={{marginTop: "0px", marginLeft: "550px", marginBottom: "0px"}}>{card.date}</h5>
+                            <h5 style={{marginTop: "0px", marginLeft: "550px", marginBottom: "0px"}}>{card.Date}</h5>
                         </div>
                     </Top>
                     <Text>
-                        <h6>{card.description}</h6>
+                        <h6>{card.Description}</h6>
                     </Text>
                 </Box>
             </div>
         ); 
     }; 
-    return <div>{cardContent.map(renderCard)}</div>; 
+    return <div>{programReviews.map(renderCard)}</div>; 
 }; 
 
 const Top = styled.div`

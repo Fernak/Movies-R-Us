@@ -71,11 +71,12 @@ export default function Dashboard() {
 const Container = styled.div``;
 
 const Header = styled.div`
-    .navbar { background-color: #222; }
-    a, .navbar-nav, .navbar-light .nav-link {
-        color: #9FFFCB;
-        font-size: 1.2em;
-        &:hover { color: white; }
+    .navbar { 
+    background-color: #222; 
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
     }
     .navbar-brand {
         font-size: 1.4em;

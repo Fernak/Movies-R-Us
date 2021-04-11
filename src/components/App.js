@@ -16,9 +16,8 @@ import TVShows from "./dashboard/pages/TVShows"
 import Subscriptions from "./dashboard/pages/Subscriptions"
 import Trending from "./dashboard/pages/Trending"
 import Favourites from "./dashboard/pages/Favourites"
-import IndivCrew from "./dashboard/pages/IndivCrew"
-import IndivMovie from "./dashboard/pages/IndivMovie"
-import IndivTVShow from "./dashboard/pages/IndivTVShow"
+import CrewDetails from "./dashboard/pages/CrewDetails"
+import ProgramDetails from "./dashboard/pages/ProgramDetails"
 
 function App() {
   return (
@@ -34,9 +33,8 @@ function App() {
           <PrivateRoute exact path="/subscriptions" component={Subscriptions} />
           <PrivateRoute exact path="/trending" component={Trending} />
           <PrivateRoute exact path="/favourites" component={Favourites} />
-          <PrivateRoute exact path="/indivcrew" component={IndivCrew} />
-          <PrivateRoute exact path="/indivmovie/:Uid" component={IndivMovie} />
-  <PrivateRoute exact path="/indivtvshow" component={IndivTVShow} />
+          <PrivateRoute exact path="/crewdetails" component={CrewDetails} />
+          <PrivateRoute exact path="/programdetails" component={ProgramDetails} />
           <Container
             className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "100vh" }}

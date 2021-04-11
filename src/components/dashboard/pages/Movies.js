@@ -12,7 +12,7 @@ export default function Movies() {
     const [programs, setMovies] = useState([]); 
 
     useEffect(()=>{
-        fetch('/movies').then(response => 
+        fetch('/programs?Type=Movie').then(response => 
             response.json()).then(data => { 
                 setMovies(data); 
             }); 

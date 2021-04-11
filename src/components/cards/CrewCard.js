@@ -1,20 +1,12 @@
 import React from 'react'
 import {Card, Button} from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import './Card.css'
 
 
-export default function CrewCard(){
-    const cardContent = [
-        {image: "https://m.media-amazon.com/images/M/MV5BMTQzMzg1ODAyNl5BMl5BanBnXkFtZTYwMjAxODQ1._V1_SX150_CR0,0,150,150_.jpg", name: "Al Pacino", role: "Actor"},
-        {image: "https://m.media-amazon.com/images/M/MV5BMjAwNDU3MzcyOV5BMl5BanBnXkFtZTcwMjc0MTIxMw@@._V1_SX150_CR0,0,150,150_.jpg", name: "Robert De Niro", role: "Actor"},
-        {image: "https://m.media-amazon.com/images/M/MV5BMjA1MjE2MTQ2MV5BMl5BanBnXkFtZTcwMjE5MDY0Nw@@._V1_SX150_CR0,0,150,150_.jpg", name: "Brad Pitt", role: "Actor"},
-        {image: "https://m.media-amazon.com/images/M/MV5BMTc1MDI0MDg1NV5BMl5BanBnXkFtZTgwMDM3OTAzMTE@._V1_UY209_CR2,0,140,209_AL_.jpg", name: "Cate Blanchett", role: "Actree"}, 
-        {image: "https://m.media-amazon.com/images/M/MV5BMTQzMzg1ODAyNl5BMl5BanBnXkFtZTYwMjAxODQ1._V1_SX150_CR0,0,150,150_.jpg", name: "Al Pacino", role: "Actor"},
-        {image: "https://m.media-amazon.com/images/M/MV5BMjAwNDU3MzcyOV5BMl5BanBnXkFtZTcwMjc0MTIxMw@@._V1_SX150_CR0,0,150,150_.jpg", name: "Robert De Niro", role: "Actor"},
-        {image: "https://m.media-amazon.com/images/M/MV5BMjA1MjE2MTQ2MV5BMl5BanBnXkFtZTcwMjE5MDY0Nw@@._V1_SX150_CR0,0,150,150_.jpg", name: "Brad Pitt", role: "Actor"},
-        {image: "https://m.media-amazon.com/images/M/MV5BMTc1MDI0MDg1NV5BMl5BanBnXkFtZTgwMDM3OTAzMTE@._V1_UY209_CR2,0,140,209_AL_.jpg", name: "Cate Blanchett", role: "Actree"}
-    ]; 
+export default function CrewCard({programCrew}){
+    let history = useHistory();
+    //console.log(programCrew.Cid)
 
     /**
      * References: 
@@ -24,17 +16,15 @@ export default function CrewCard(){
      */
     const renderCard = (card, index) => {
         return (
-            <Link to="indivcrew">
-                <Card style={{ width: '10rem'}} key={index} className="cCard">
-                <Card.Img variant="top" src={card.image} style={{height: "150px"}}/>
-                <Card.Body>
-                    <Card.Text style={{height: '0rem'}} className="cardTitle">{card.name}</Card.Text>
-                    <Card.Text style={{height: '0rem'}} className="cardText">{card.role}</Card.Text>
-                    <Button variant="secondary" className="favBtn">+</Button>
-                    </Card.Body>
+            <Card style={{ width: '10rem'}} key={index} className="cCard">
+                <Card.Img variant="top" src={card.Image} style={{height: "200px"}} onClick={() => history.push('/crewdetails', {Cid: card.Cid})}/>
+                <Card.Body onClick={() => history.push('/crewdetails', {Cid: card.Cid})}>
+                    <Card.Text style={{height: '0rem', marginLeft:'-10px'}} className="cardTitle">{card.Name}</Card.Text>
+                    {/*<Card.Text style={{height: '0rem'}} className="cardText">{card.role}</Card.Text>
+                    <Button variant="secondary" className="favBtn">+</Button>*/}
+                </Card.Body>
             </Card>
-            </Link>
         ); 
     }; 
-    return <div className="grid">{cardContent.map(renderCard)}</div>; 
+    return <div className="grid">{programCrew && programCrew.map(renderCard)}</div>; 
 }; 
