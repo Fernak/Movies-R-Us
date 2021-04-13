@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-// import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
 import { Link, useHistory } from "react-router-dom"
@@ -24,30 +23,30 @@ export default function SignUp() {
             setError('')
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-            history.pushState("/")
+            history.push("/")
         } catch {
             setError('Failed to create an account')
         }
         setLoading(false)
     }
 
-    // async function addToDatabase() {
-    //     const request = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({
-    //             Email: emailRef.current.value,
-    //             Password: passwordRef.current.value
-    //         })
-    //     }
-    //     const response = await fetch('/signup', request);
-    //     if (response.ok) {
-    //         console.log('Review added')
+    async function addToDatabase() {
+        const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                Email: emailRef.current.value,
+                Password: passwordRef.current.value
+            })
+        }
+        const response = await fetch('/signup', request);
+        if (response.ok) {
+            console.log('Review added')
 
-    //     } else {
-    //         console.log('Not successful')
-    //     }
-    // }
+        } else {
+            console.log('Not successful')
+        }
+    }
 
     return (
         <>
@@ -67,7 +66,7 @@ export default function SignUp() {
                             <Form.Label>Password Conformation</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} required />
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
+                        <Button disabled={loading} onClick={addToDatabase} className="w-100" type="submit">Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
