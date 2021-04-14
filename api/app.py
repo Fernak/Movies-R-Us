@@ -38,8 +38,8 @@ def user_signup():
     con.commit()
     return json.dumps({'message': 'User created successfully!'})
 
-    @app.route('/signup', methods=['GET', 'POST'])
-    def user_signup():
+    @app.route('/forgot-password', methods=['GET', 'POST'])
+    def user_forgot_password():
         return
 # ----------------------End of Auth Calls---------------------- #
 

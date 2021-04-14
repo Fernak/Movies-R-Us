@@ -17,9 +17,11 @@ export default function ForgotPassword() {
             setMessage('')
             setError('')
             setLoading(true)
-            await resetPassword(emailRef.current.value)
-            setMessage('Check your inbox for further instructions.')
-        } catch{
+
+            //Firebase call to reset password by email
+            //await resetPassword(emailRef.current.value)
+            //setMessage('Check your inbox for further instructions.')
+        } catch {
             setError('Failed to reset password')
         }
         setLoading(false)
