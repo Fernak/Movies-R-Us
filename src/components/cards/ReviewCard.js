@@ -3,11 +3,6 @@ import styled from 'styled-components'
 import {Rating} from 'semantic-ui-react'
 
 export default function ReviewCards({programReviews}){
-    /**const cardContent = [
-        {image: "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=6&m=1223671392&s=612x612&w=0&h=NGxdexflb9EyQchqjQP0m6wYucJBYLfu46KCLNMHZYM=", name: "Random", date: "March 26, 2021", rating:"8/10", description:"Good!!"}, 
-        {image: "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=6&m=1223671392&s=612x612&w=0&h=NGxdexflb9EyQchqjQP0m6wYucJBYLfu46KCLNMHZYM=", name: "Bob", date: "March 26, 2021", rating:"8/10", description:"Awesome!"}, 
-    ]; */ 
-
     /**
      * References: 
      * To populate each card with information from card content object: 

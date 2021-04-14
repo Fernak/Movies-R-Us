@@ -5,11 +5,12 @@ import CrewCard from '../../cards/CrewCard'
 import styled from 'styled-components'
 
 export default function Favourites() {
+    //Need to pass in email of user logged in 
+    var userEmail = 'dennis.scott@email.com'
+
     const [favCrew, setFavCrew] = useState([]);
     const [favMovies, setFavMovies] = useState([]); 
     const [favTvshows, setFavTvshows] = useState([]); 
-
-    var userEmail = 'dennis.scott@email.com'
 
     useEffect(()=>{
         fetch(`/userfavs?Email=${userEmail}`).then(response => 
@@ -17,8 +18,6 @@ export default function Favourites() {
                 setFavCrew(data['favouritecrew']); 
                 setFavMovies(data['favouritemovies'])
                 setFavTvshows(data['favouriteshows'])
-                //console.log(props.location.state); 
-                //console.log(props.location.state['state'])
             }); 
     }, []); 
     

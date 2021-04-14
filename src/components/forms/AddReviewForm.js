@@ -6,7 +6,9 @@ import {Form, Input, Rating} from 'semantic-ui-react'
 export default function AddReviewForm(props){
     const [userRating, setUserRating] = useState(0)
     const [review, setReview] = useState('')
+    var obj; 
     var Uid = props.Uid
+    var Email = props.userEmail 
 
     function closeReview(){
         props.setTrigger(false)
@@ -27,20 +29,19 @@ export default function AddReviewForm(props){
             const request = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ Uid: Uid, Author: 'jonathan.smith', Rating: userRating, Description: review})
+                body: JSON.stringify({ Uid: Uid, Email: Email, Rating: userRating, Description: review})
             }
-            const response = await fetch('/userreview', request); 
-            if (response.ok){
-                console.log('Review added')
-             
-            } else{
-                console.log('Not successful')
-            }
-            
-
+            // Referenced: Handling response status using fetch in react JS
+            await fetch('/userreview', request).then(response => {
+                if (response.ok){
+                    return response.json()
+                }
+            }).then(data => { 
+                console.log(data)
+                obj = data
+                }); 
+            props.onAddedReview({Author: obj['Username'], Date: obj['Date'], Description: review, Rating: userRating})
             props.setTrigger(false)
-            console.log(review)
-            console.log(userRating)
             setUserRating(0)
             setReview('')   
         }    

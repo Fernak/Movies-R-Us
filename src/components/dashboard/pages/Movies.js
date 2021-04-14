@@ -4,6 +4,8 @@ import ProgramCard from '../../cards/ProgramCard'
 import styled from 'styled-components'
 
 export default function Movies() {
+    //Need to pass in email of user logged in 
+    var userEmail = 'jonathan.smith@email.com'
     /**
      * References: 
      *  * How to call an api endpoint and get the data to pass to Program card component 
@@ -12,7 +14,7 @@ export default function Movies() {
     const [programs, setMovies] = useState([]); 
 
     useEffect(()=>{
-        fetch('/programs?Type=Movie').then(response => 
+        fetch(`/programs?Type=Movie&Email=${userEmail}`).then(response => 
             response.json()).then(data => { 
                 setMovies(data); 
             }); 

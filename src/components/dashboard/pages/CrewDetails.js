@@ -7,6 +7,7 @@ import ProgramCard from '../../cards/ProgramCard'
 export default function CrewDetails(props) {
     const [crewDetails, setCrewDetails] = useState([])
     const [crewPrograms, setCrewPrograms] = useState([])
+    const [crewRoles, setCrewRoles] = useState([])
 
     var Cid = props.location.state['Cid']
 
@@ -15,9 +16,12 @@ export default function CrewDetails(props) {
             response.json()).then(data => { 
                 setCrewDetails([data['crewinfo']])
                 setCrewPrograms(data['crewprograms'])
+                setCrewRoles(data['crewroles'])
                 console.log(props.location.state['Cid'])
             }); 
     }, []); 
+
+    console.log(crewRoles)
 
     return (
         <>
@@ -29,10 +33,12 @@ export default function CrewDetails(props) {
                     <div style={{marginLeft: "50px"}}>
                         <Title><h1>{details.Name}</h1></Title>
                         <div>
-                            <Text><h3>Age: 80</h3></Text>
                             <Text><h3>Gender: {details.Name}</h3></Text>
                             <Text><h3>Hometown: {details.Hometown}</h3></Text>
-                            <Text><h3>Roles: Actor, Director, Producer</h3></Text>
+                            <Text1><h3>Roles:</h3></Text1>
+                            {crewRoles.map(roles => (
+                                <h4 style={{marginLeft: "50px", marginTop: "0px", marginBottom: "2px"}}>{roles.Crew_role}</h4>
+                            ))}
                         </div>
                     </div>
                 </Top>
@@ -41,7 +47,6 @@ export default function CrewDetails(props) {
                 <Scroll><ProgramCard programs={crewPrograms}/></Scroll>
             </div>
             ))}
-
         </>
     )
 }
@@ -59,6 +64,11 @@ const Text = styled.div `
     margin-left: 30px; 
     margin-top: 0px; 
     margin-bottom: 20px; 
+`
+const Text1 = styled.div `
+    margin-left: 30px; 
+    margin-top: 0px; 
+    margin-bottom: 5px; 
 `
 
 const Header = styled.div`

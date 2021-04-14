@@ -6,7 +6,6 @@ import './Card.css'
 
 export default function CrewCard({programCrew}){
     let history = useHistory();
-    //console.log(programCrew.Cid)
 
     /**
      * References: 
@@ -20,8 +19,6 @@ export default function CrewCard({programCrew}){
                 <Card.Img variant="top" src={card.Image} style={{height: "200px"}} onClick={() => history.push('/crewdetails', {Cid: card.Cid})}/>
                 <Card.Body onClick={() => history.push('/crewdetails', {Cid: card.Cid})}>
                     <Card.Text style={{height: '0rem', marginLeft:'-10px'}} className="cardTitle">{card.Name}</Card.Text>
-                    {/*<Card.Text style={{height: '0rem'}} className="cardText">{card.role}</Card.Text>
-                    <Button variant="secondary" className="favBtn">+</Button>*/}
                 </Card.Body>
             </Card>
         ); 

@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
-export default function SubCard(){
-    const cardContent = [
-        {image: "https://cdn.vox-cdn.com/thumbor/QuS2QKQys3HhosKiV-2IuKhphbo=/39x0:3111x2048/1400x1050/filters:focal(39x0:3111x2048):format(png)/cdn.vox-cdn.com/uploads/chorus_image/image/49901753/netflixlogo.0.0.png", name: "Netflix", location: "Canada", price:"9.99 CAD"}, 
-        {image: "https://images-na.ssl-images-amazon.com/images/I/41Ic%2BJWI8EL.jpg", name: "Amazon Prime Video", location: "Canada", price:"7.99 CAD"}, 
-        {image: "https://cdn57.androidauthority.net/wp-content/uploads/2019/10/disney-plus-logo.jpg", name: "Disney+", location: "Canada", price:"11.99"}, 
-        {image: "https://support.apple.com/content/dam/edam/applecare/images/en_US/psp/featured-section-appletv-plus_2x.jpg", name: "Apple TV+", location: "Canada", price:"5.99 CAD"}
-    ]; 
+export default function SubCard({services, userEmail, onRemovedService}){
+    var Email = userEmail
 
+    async function removeService(serviceName){
+        const request = {
+            method: 'DELETE', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ Email: userEmail, Service_name: serviceName})
+        }
+        const response = await fetch('/usersubscriptions', request); 
+        if (response.ok){
+            console.log('Service has been removed')
+            alert('Service has been successfully removed')
+            onRemovedService(serviceName)
+        } else{
+            console.log('Not successful')
+        }
+    }
     /**
      * References: 
      * To populate each card with information from card content object: 
@@ -19,25 +29,23 @@ export default function SubCard(){
         return (
             <div>
                 <Box>
-                    <Title>
-                        <h3> <img style={{width: "40px", height: "40px"}} src={card.image} alt=""/>   {card.name}</h3>
-                    </Title>
-                    <Text>
-                        <h6>{card.location}</h6>
-                        <h6>{card.price} /month</h6>
-                    </Text>
-                    <RemoveLink><Link>Remove Subscription</Link></RemoveLink>
+                    <Top>
+                        <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "15px", marginTop: "10px"}} src={card.Logo} alt=""/>   
+                        <div>
+                            <h3 style={{marginTop: "15px", marginLeft: "15px", marginBottom: "0px"}}>{card.Service_name}</h3>
+                            <Text>
+                                <h6>{card.Location}</h6>
+                                <h6>{card.Price} /month</h6>
+                            </Text>
+                        </div>
+                    </Top>
+                    <RemoveLink><Link onClick={() => removeService(card.Service_name)}>Remove Subscription</Link></RemoveLink>
                 </Box>
             </div>
         ); 
     }; 
-    return <div>{cardContent.map(renderCard)}</div>; 
+    return <div>{services.map(renderCard)}</div>; 
 }; 
-
-const CardTitle = styled.div`
-    font-size: medium;
-    font-weight: bold;
-`
 
 /*
  * References: 
@@ -53,19 +61,19 @@ const Box = styled.div`
     border-radius: 10px;
     box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
     margin-left: 400px; 
-    background: white;
-    height: 150px; 
+    background: #FAEAE6;
+    height: 140px; 
     width: 800px; 
 `
-const Title = styled.div`
-    margin-left: 20px; 
-    margin-top: 10px; 
-`
-const Text = styled.div`
-    margin-left: 70px; 
-    margin-top: 0px; 
+const Top = styled.div`
+    display: flex;  
     margin-bottom: 0px; 
 `
+const Text = styled.div`
+    margin-left: 30px; 
+    margin-top: 15px; 
+`
+/**650 */
 const RemoveLink = styled(Link) `
     margin-left: 650px; 
 `

@@ -18,29 +18,20 @@ mysql = MySQL(app)
     * https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api
     * https://flask-mysqldb.readthedocs.io/en/latest/
 '''
-#Getting list of movies in database (forgot if we wanted to only show movies that are offered by services the user is subscribed to)
+#Get list of programs that are offered by the streaming services that the user is subscribed to 
 @app.route('/programs', methods=['GET'])
 def get_programs():
-    if 'Type' in request.args:
+    if 'Type' and 'Email' in request.args:
         Type = request.args['Type']
+        Email = request.args['Email']
     else:
-        return "Error: No Uid prvoided."
+        return "Error: No Type or user email prvoided."
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM program WHERE type=%s", [Type])
+    cur.execute('''CALL getPrograms(%s, %s)''', [Type, Email])
     results = cur.fetchall()
     return jsonify(results)
 
-'''
-#Getting list of tvshow in database 
-@app.route('/tvshows', methods=['GET'])
-def get_tvshows():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM program WHERE type='TV Show'")
-    results = cur.fetchall()
-    return jsonify(results)
-'''
-
-#Getting details of a specific program (join and filter by program Uid)
+#Get details of a specific program 
 @app.route('/programdetails', methods=['GET'])
 def get_program_details(): 
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -49,42 +40,15 @@ def get_program_details():
     else:
         return "Error: No Uid prvoided."
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM program p, program_details pd WHERE p.Uid=%s AND p.Uid=pd.Uid", [Uid])
+    cur.execute('''CALL getProgramDetails(%s, 'info')''', [Uid])
     result1 = cur.fetchone()
-    cur.execute("SELECT c.Cid AS Cid, c.Name, c.Image FROM work_on w, crew c WHERE w.Uid=%s AND w.Cid=c.Cid", [Uid])
+    cur.execute('''CALL getProgramDetails(%s, 'crew')''', [Uid])
     result2 = cur.fetchall()
-    cur.execute("SELECT Author, Date, Rating, Description FROM reviews WHERE Uid=%s", [Uid])
+    cur.execute('''CALL getProgramDetails(%s, 'reviews')''', [Uid])
     result3 = cur.fetchall()
     return {'programinfo' : result1, 'programcrew' : result2, 'programreviews' : result3}
 
-'''
-#Getting the crew members of a specific program (join and filter by program Uid)
-@app.route('/programcrew', methods=['GET'])
-def get_program_crew(): 
-    # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
-    if 'Uid' in request.args:
-        Uid = request.args['Uid']
-    else:
-        return "Error: No uuid prvoided."
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT c.Name, c.Image FROM work_on w, crew c WHERE w.Uid=%s AND w.Cid=c.Cid", [Uid])
-    results = cur.fetchall()
-    return jsonify(results)
-
-# Getting all reviews of a specific program 
-@app.route('/programreviews', methods=['GET'])
-def get_program_reviews(): 
-    if 'Uid' in request.args:
-        Uid = request.args['Uid']
-    else:
-        return "Error: No program Uid prvoided."
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT Author, Date, Rating, Description FROM reviews WHERE Uid=%s", [Uid])
-    results = cur.fetchall()
-    return jsonify(results)
-'''
-
-#Getting details of a specific crew member (filter by program Cid)
+#Get details of a specific crew member
 @app.route('/crewdetails', methods=['GET'])
 def get_crew_details(): 
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -93,52 +57,15 @@ def get_crew_details():
     else:
         return "Error: No Cid prvoided."
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM crew WHERE Cid=%s", [Cid])
+    cur.execute('''CALL getCrewDetails(%s, 'info')''', [Cid])
     result1 = cur.fetchone()
-    cur.execute("SELECT Program_name, w.Uid AS Uid, p.Image AS Image FROM crew c, work_on w, program p WHERE c.Cid=%s AND w.Cid=c.Cid AND w.Uid=p.Uid", [Cid])
+    cur.execute('''CALL getCrewDetails(%s, 'programs')''', [Cid])
     result2 = cur.fetchall()
-    return {'crewinfo': result1, 'crewprograms' : result2}
-'''
-#Getting the the list of crew members that are favourited by a specific user filter by Uid=null)
-@app.route('/userfavourites', methods=['GET'])
-def get_user_fav_crew(): 
-    # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
-    if 'Email' in request.args:
-        Email = request.args['Email']
-    else:
-        return "Error: No user email prvoided."
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT Name FROM favourites f WHERE f.Email=%s AND f.Uid IS NULL", [Email])
-    results = cur.fetchall()
-    return jsonify(results)
+    cur.execute('''CALL getCrewDetails(%s, 'roles')''', [Cid])
+    result3 = cur.fetchall()
+    return {'crewinfo': result1, 'crewprograms' : result2, 'crewroles': result3}
 
-#Getting the all the movies that are favourited by a specific user (joined by Uid and filter by program type)
-@app.route('/userfavmovies', methods=['GET'])
-def get_user_fav_movies(): 
-    # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
-    if 'Email' in request.args:
-        Email = request.args['Email']
-    else:
-        return "Error: No user email prvoided."
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT f.Name FROM favourites f, program p WHERE f.Email=%s AND f.Uid=p.Uid AND p.Type='Movie'", [Email])
-    results = cur.fetchall()
-    return jsonify(results)
-
-#Getting the all the shows that are favourited by a specific user (joined by Uid and filter by program type)
-@app.route('/userfavshows', methods=['GET'])
-def get_user_fav_shows(): 
-    # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
-    if 'Email' in request.args:
-        Email = request.args['Email']
-    else:
-        return "Error: No user email prvoided."
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT f.Name FROM favourites f, program p WHERE f.Email=%s AND f.Uid=p.Uid AND p.Type='TV Show'", [Email])
-    results = cur.fetchall()
-    return jsonify(results)
-'''
-#Getting the all the shows that are favourited by a specific user (joined by Uid and filter by program type)
+#Get the all the shows that are favourited by a specific user
 @app.route('/userfavs', methods=['GET'])
 def get_user_fav(): 
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -148,24 +75,24 @@ def get_user_fav():
         return "Error: No user email prvoided."
     cur = mysql.connection.cursor()
     #User favourite crews 
-    cur.execute("SELECT f.Name AS Name, f.Cid AS Cid, c.Image AS Image FROM favourites f, crew c WHERE f.Email=%s AND f.Cid=c.Cid", [Email])
+    cur.execute('''CALL getUserFavourites(%s, 'crew')''', [Email])
     result1 = cur.fetchall()
-    cur.execute("SELECT f.Name AS Name, f.Uid AS Uid, p.Image AS Image FROM favourites f, program p WHERE f.Email=%s AND f.Uid=p.Uid AND p.Type='Movie'", [Email])
+    cur.execute('''CALL getUserFavourites(%s, 'movies')''', [Email])
     result2 = cur.fetchall()
-    cur.execute("SELECT f.Name AS Name, f.Uid AS Uid, p.Image AS Image FROM favourites f, program p WHERE f.Email=%s AND f.Uid=p.Uid AND p.Type='TV Show'", [Email])
+    cur.execute('''CALL getUserFavourites(%s, 'tvshows')''', [Email])
     result3 = cur.fetchall()
     return {'favouritecrew' : result1, 'favouritemovies' : result2, 'favouriteshows' : result3}
 
-
-# Adding a favourite to the database 
+# Remove a user favourite (can be program or crew)
 @app.route('/userfavs', methods=['DELETE'])
 def remove_user_fav(): 
+    method = 'DELETE'
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
     if 'Email' and 'Uid' in request.args:
         Email = request.args['Email']
         Uid = request.args['Uid']
         cur = mysql.connection.cursor()
-        cur.execute('DELETE FROM favourites WHERE Email=%s AND Uid=%s', [Email, Uid])
+        cur.execute('''CALL manageFavourites(%s, %s, '', %s)''', [Email, Uid, method])
         mysql.connection.commit()
         cur.close()
         return 'Done'
@@ -173,14 +100,14 @@ def remove_user_fav():
         Email = request.args['Email']
         Cid = request.args['Cid']
         cur = mysql.connection.cursor()
-        cur.execute('DELETE FROM favourites WHERE Email=%s AND Cid=%s', [Email, Cid])
+        cur.execute('''CALL manageFavourites(%s, '', %s, %s)''', [Email, Cid, method])
         mysql.connection.commit()
         cur.close()
         return 'Done'
     else:
         return "Error: No email or id prvoided."
 
-# Adding a favourite to the database 
+# Add a user favourite (can be a program or crew)
 @app.route('/userfavs', methods=['POST'])
 def add_user_fav(): 
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -188,27 +115,77 @@ def add_user_fav():
     Email = requestObj['Email'] 
     Uid = requestObj['Uid']
     Cid = requestObj['Cid']
-    if 'Email' and 'Uid':
-        return 'Done'
-    if 'Email' and 'Cid':
-        return 'Not Done'
-    else:
-        return "Error: No email or id prvoided."
+    method = 'POST'
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL manageFavourites(%s, %s, %s, %s)''', [Email, Uid, Cid, method])
+    mysql.connection.commit()
+    cur.close()
+    return "Done"
 
-
-# Inserting new user review 
+# Inserting new user review for a program
 @app.route('/userreview', methods=['POST'])
 def add_user_review(): 
     requestObj = request.get_json()
     Uid = requestObj['Uid']
-    Author = requestObj['Author']
+    Email = requestObj['Email']
     Rating = requestObj['Rating'] 
     Description = requestObj['Description']
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO reviews (Uid, Author, Rating, Description) VALUES (%s, %s, %s, %s)", [Uid, Author, Rating, Description])
+    cur.execute('''CALL addReview(%s, %s, %s, %s)''', [Uid, Email, Rating, Description])
+    results = cur.fetchone()
+    cur.close()
+    mysql.connection.commit() 
+    print(results) 
+    return jsonify(results)
+
+#Get all services the user is subscribed to 
+@app.route('/usersubscriptions', methods=['GET'])
+def get_user_subs(): 
+    # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
+    if 'Email' in request.args:
+        Email = request.args['Email']
+    else:
+        return "Error: No Email prvoided."
+    method = 'GET'
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL manageUserService(%s, '', %s)''', [Email, method])
+    result = cur.fetchall()
+    return jsonify(result)
+
+# Insert new subscribed service for the user 
+@app.route('/usersubscriptions', methods=['POST'])
+def add_user_sub(): 
+    requestObj = request.get_json()
+    Email = requestObj['Email']
+    Service_name = requestObj['Service_name']
+    method = 'POST'
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL manageUserService(%s, %s, %s)''', [Email, Service_name, method])
     mysql.connection.commit()
     cur.close()
     return "Done!"
+
+# Remove a user subscription service 
+@app.route('/usersubscriptions', methods=['DELETE'])
+def delete_user_sub(): 
+    requestObj = request.get_json()
+    Email = requestObj['Email']
+    Service_name = requestObj['Service_name']
+    method = 'DELETE'
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL manageUserService(%s, %s, %s)''', [Email, Service_name, method])
+    mysql.connection.commit()
+    cur.close()
+    return "Done!"
+
+#Get list of all available streaming services 
+@app.route('/services', methods=['GET'])
+def get_all_services(): 
+    # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL getServices()''')
+    result = cur.fetchall()
+    return jsonify(result)
 
 if __name__ == "__main__":
     app.run(debug=True)

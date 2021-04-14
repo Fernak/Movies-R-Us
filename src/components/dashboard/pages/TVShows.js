@@ -3,7 +3,9 @@ import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
 import styled from 'styled-components'
 
-export default function Movies() {
+export default function TVShows() {
+    //Need to pass in email of user logged in 
+    var userEmail = 'jonathan.smith@email.com'
     /**
      * References: 
      *  * How to call an api endpoint and get the data to pass to Program card component 
@@ -12,7 +14,7 @@ export default function Movies() {
     const [programs, setTvshows] = useState([]); 
 
     useEffect(()=>{
-        fetch('/programs?Type=TV Show').then(response => 
+        fetch(`/programs?Type=TV Show&Email=${userEmail}`).then(response => 
             response.json()).then(data => { 
                 setTvshows(data); 
             }); 
