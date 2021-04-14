@@ -7,7 +7,7 @@ app = Flask(__name__)
 #Database configuration 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Bubbledophins1201!'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'cpsc471_project_db'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
