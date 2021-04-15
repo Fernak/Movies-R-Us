@@ -11,6 +11,7 @@ import ForgotPassword from "./login/ForgotPassword"
 
 import Home from "./dashboard/pages/Home"
 import Profile from "./dashboard/pages/Profile"
+import ProfileEdit from "./dashboard/pages/ProfileEdit"
 import Movies from "./dashboard/pages/Movies"
 import TVShows from "./dashboard/pages/TVShows"
 import Subscriptions from "./dashboard/pages/Subscriptions"
@@ -28,6 +29,7 @@ function App() {
           {/*<PrivateRoute exact path="/" component={Dashboard} />*/}
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />
           <PrivateRoute exact path="/movies" component={Movies} />
           <PrivateRoute exact path="/tvshows" component={TVShows} />
           <PrivateRoute exact path="/subscriptions" component={Subscriptions} />
@@ -43,7 +45,7 @@ function App() {
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
-            </div> 
+            </div>
           </Container>
         </Switch>
       </AuthProvider>
