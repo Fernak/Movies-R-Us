@@ -88,10 +88,9 @@ export default function ProfileEdit() {
         await fetch('/profile-edit', request).then(response => {
             if (response.ok) {
                 console.log('User updated')
-                return response.json()
+                return history.push("/profile")
             }
         });
-
     }
 
     return (

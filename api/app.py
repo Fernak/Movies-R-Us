@@ -13,39 +13,22 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
-'''
-* References: 
-    * https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api
-    * https://flask-mysqldb.readthedocs.io/en/latest/
-'''
 # ------------------Authentication Database Calls ---------------#
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['POST'])
 def user_signup():
-    con = mysql.connection
-    cur = mysql.connection.cursor()
-
-    query = """insert into user(Email, Name, Age, Gender, Profile_pic)
-            values (%(_email)s, %(_name)s, %(_age)s, %(_gender)s, %(_pic)s)"""
-
     requestObj = request.get_json()
+    Username = requestObj['Username']
     Email = requestObj['Email']
     Password = requestObj['Password']
-    params = {
-        '_email': Email,
-        '_name': Password,
-        '_age': "21",
-        '_gender': '(NULL)',
-        '_pic': '(NULL)'
-    }
-    cur.execute(query, params)
-    con.commit()
-    return json.dumps({'message': 'User created successfully!'})
-
-    # @app.route('/forgot-password', methods=['GET', 'POST'])
-    # def user_forgot_password():
-    #     return
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL addUser(%s, %s, %s)''',
+                [Username, Email, Password])
+    results = cur.fetchone()
+    cur.close()
+    mysql.connection.commit()
+    return json.dumps({'message': 'User updated successfully!'})
 
 
 @app.route('/profile', methods=['GET'])
@@ -80,6 +63,13 @@ def update_user_details():
 
 # ----------------------End of Auth Calls---------------------- #
 
+# Get list of programs that are offered by the streaming services that the user is subscribed to
+# Getting list of movies in database (forgot if we wanted to only show movies that are offered by services the user is subscribed to)
+'''
+* References: 
+    * https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api
+    * https://flask-mysqldb.readthedocs.io/en/latest/
+'''
 # Get list of programs that are offered by the streaming services that the user is subscribed to
 
 

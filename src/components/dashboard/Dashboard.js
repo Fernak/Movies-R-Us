@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Nav, Navbar, Form, Alert } from 'react-bootstrap'
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
@@ -11,6 +11,7 @@ export default function Dashboard() {
     const [error, setError] = useState("")
     const { currentUser, logout } = useAuth()
     const history = useHistory()
+    const searchRef = useRef()
 
     async function handleLogout() {
         setError('')
@@ -22,6 +23,10 @@ export default function Dashboard() {
             setError('Failed to log out')
         }
     }
+
+    async function search() {
+        console.log(searchRef.current.value)
+    }
     return (
         <Container>
             <Header>
@@ -30,7 +35,7 @@ export default function Dashboard() {
                     <Navbar.Brand href="/">MOVIESRUS</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Form className="form-search">
-                        <Input icon="search" placeholder="Search..." />
+                        <Input icon="search" placeholder="Search..." onSubmit={search} ref={searchRef} />
                     </Form>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
