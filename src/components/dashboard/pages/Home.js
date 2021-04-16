@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
+import UserCard from '../../cards/UserCard'
 import styled from 'styled-components'
 
 import firebase from "firebase/app";
@@ -10,7 +11,8 @@ export default function Home() {
     const user = firebase.auth().currentUser;
     var userEmail = user.email
 
-    const [admins, setAdmins] = useState([])
+    const [admins, setAdmins] = useState([]);
+    const [users, setUsers] = useState([]);
     const [movies, setMovies] = useState([]);
     const [tvshows, setTvshows] = useState([]);
 
@@ -31,6 +33,15 @@ export default function Home() {
             });
     }, []);
 
+    // Getting all users that exist in the database from API call if admin 
+    useEffect(() => {
+        fetch(`/allusers?Email=${userEmail}`).then(response =>
+            response.json()).then(data => {
+                setUsers(data['users']);
+            });
+    }, []);
+
+
     // Checking if user logged in is an admin and display the corresponding results 
     if (!(admins.some(admin => admin.Email === userEmail))){
         return (
@@ -50,6 +61,15 @@ export default function Home() {
         return (
             <>
                 <Dashboard/>
+                <Header>
+                    <h1>User Count: </h1>
+                    <h2>{users.length}</h2>
+                </Header>
+                <Header>
+                    <h1>List of Users: </h1>
+                </Header>
+                <Container><UserCard users={users} /></Container>
+
             </>
         )
     }
@@ -62,6 +82,12 @@ const Header = styled.div`
 const Header2 = styled.div`
     margin-left: 240px; 
     margin-top: 50px;
+    margin-bottom: 0px; 
+`
+
+const Container = styled.div`
+    margin-left: 0px; 
+    margin-top: 0px;
 `
 
 /*

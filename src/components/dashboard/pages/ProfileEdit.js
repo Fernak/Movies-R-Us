@@ -13,6 +13,7 @@ export default function ProfileEdit() {
     const [userDetails, setUserDetails] = useState([]);
 
     const passwordRef = useRef()
+    const [password, setPassword] = useState('')
     const nameRef = useRef()
     const [name, setName] = useState('')
     const usernameRef = useRef()
@@ -35,7 +36,9 @@ export default function ProfileEdit() {
             });
     }, []);
 
-    async function updateUserDatabase() {
+    async function updateUserDatabase(e) {
+        e.preventDefault();
+
         if (nameRef.current.value === '') {
             setName(userDetails.map(a => a.Name));
         } else {
@@ -67,6 +70,7 @@ export default function ProfileEdit() {
             }).catch(function (error) {
                 console.log("An error happened.")
             });
+            setPassword(passwordRef.current.value)
         }
         // console.log(age)
         // console.log(name)
@@ -82,7 +86,8 @@ export default function ProfileEdit() {
                 Email: userEmail,
                 Age: age,
                 Gender: gender,
-                Language: language
+                Language: language,
+                Password: password
             })
         }
         console.log(request)
@@ -103,7 +108,7 @@ export default function ProfileEdit() {
                     <Card.Body>
                         <h2 className="text-center mb-4">Edit Profile</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
-                        <Form>
+                        <Form onSubmit={updateUserDatabase}>
                             {/* Name */}
                             <Form.Group id="name">
                                 <Form.Label>Name</Form.Label>
@@ -132,7 +137,7 @@ export default function ProfileEdit() {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" ref={passwordRef} />
                             </Form.Group>
-                            <Button className="w-100" onClick={updateUserDatabase}>Sign Up</Button>
+                            <Button className="w-100" type='submit'>Sign Up</Button>
                         </Form>
                     </Card.Body>
                     <div className="w-100 text-center mt-2">

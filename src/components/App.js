@@ -19,6 +19,7 @@ import Favourites from "./dashboard/pages/Favourites"
 import CrewDetails from "./dashboard/pages/CrewDetails"
 import ProgramDetails from "./dashboard/pages/ProgramDetails"
 import Schedule from "./dashboard/pages/Schedule"
+import SearchPage from "./dashboard/pages/SearchPage"
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
           <PrivateRoute exact path="/crewdetails" component={CrewDetails} />
           <PrivateRoute exact path="/programdetails" component={ProgramDetails} />
           <PrivateRoute exact path="/schedule" component={Schedule} />
+          <PrivateRoute exact path="/search-page" component={SearchPage} />
+
           <Container
             className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "100vh" }}

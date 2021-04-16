@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Database configuration
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'Bubbledophins1201!'
 app.config['MYSQL_DB'] = 'cpsc471_project_db'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -50,13 +50,25 @@ def update_user_details():
     Age = requestObj['Age']
     Gender = requestObj['Gender']
     Language = requestObj['Language']
+    Password = requestObj['Password']
     cur = mysql.connection.cursor()
-    cur.execute('''CALL updateUser(%s, %s, %s, %s, %s, %s)''',
-                [Name, Username, Email, Age, Gender, Language])
+    cur.execute('''CALL updateUser(%s, %s, %s, %s, %s, %s, %s)''',
+                [Name, Username, Email, Age, Gender, Language, Password])
     results = cur.fetchone()
     cur.close()
     mysql.connection.commit()
     return json.dumps({'message': 'User updated successfully!'})
+
+@app.route('/allusers', methods=['GET'])
+def get_all_users():
+    if 'Email' in request.args:
+        Email = request.args['Email']
+    else:
+        return "Error: No Email provided."
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL getAllUsers(%s)''', [Email])
+    results = cur.fetchall()
+    return {'users': results}
 
 @app.route('/admin', methods=['GET'])
 def get_admin_list():
@@ -142,6 +154,15 @@ def get_all_programs_schedule():
 # ----------------------End of Program Calls---------------------- #
 
 # ------------------Crew Database Calls ---------------#
+
+# Getting list of all programs in the database 
+@app.route('/allcrew')
+def get_all_crew():
+    cur = mysql.connection.cursor()
+    cur.execute('''CALL getAllCrew()''')
+    results = cur.fetchall()
+    return jsonify(results)
+
 # Get details of a specific crew member
 @app.route('/crewdetails', methods=['GET'])
 def get_crew_details():

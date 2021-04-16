@@ -13,6 +13,7 @@ export default function Dashboard() {
     const history = useHistory()
     const searchRef = useRef()
 
+
     async function handleLogout() {
         setError('')
 
@@ -24,8 +25,15 @@ export default function Dashboard() {
         }
     }
 
-    async function search() {
-        console.log(searchRef.current.value)
+    async function handleSubmit(e) {
+        if(e.key === 'Enter'){
+            e.preventDefault()   
+            console.log("Made it")
+            console.log(searchRef.current.value)
+            history.push('/search-page', {Input: searchRef.current.value})
+
+        }
+        
     }
     return (
         <Container>
@@ -34,8 +42,8 @@ export default function Dashboard() {
                 <Navbar expand="lg">
                     <Navbar.Brand href="/">MOVIESRUS</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Form className="form-search">
-                        <Input icon="search" placeholder="Search..." onSubmit={search} ref={searchRef} />
+                    <Form className="form-search" onSubmit={handleSubmit}>
+                        <Form.Control icon="search" placeholder="Search..." onKeyPress={handleSubmit} ref={searchRef} required/>
                     </Form>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
@@ -94,6 +102,7 @@ const Header = styled.div`
         position: absolute !important;
         left: 15%;
         right: 55%;
+        
     }
 `;
 
@@ -132,4 +141,4 @@ const SidebarHeader = styled.text`
 
 const ProfileLink = styled.text`
     padding: 10px 10px 0 0;
-`;
+`; 
