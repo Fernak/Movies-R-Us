@@ -85,6 +85,7 @@ export default function ProfileEdit() {
                 Language: language
             })
         }
+        console.log(request)
         await fetch('/profile-edit', request).then(response => {
             if (response.ok) {
                 console.log('User updated')

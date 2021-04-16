@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import {Button} from 'react-bootstrap'
 import styled from 'styled-components'
-import {Form, Input, Rating} from 'semantic-ui-react'
+import {Form, Input, Rating, Button} from 'semantic-ui-react'
 
 export default function AddReviewForm(props){
     const [userRating, setUserRating] = useState(0)
@@ -53,14 +52,17 @@ export default function AddReviewForm(props){
         <Popup>
             <ReviewForm>
                 <Form>
-                    <CloseBtn><Button variant="default"style={{background: "#9FFFCB"}} onClick={closeReview}>X</Button></CloseBtn>
+                    <Top>
+                        <h2 style={{width: "300px"}}>Add a review</h2>
+                        <CloseBtn><Button variant="default" onClick={closeReview} icon='close'/></CloseBtn>
+                    </Top>
                     <Form.Field>
-                        <Rating icon='star' maxRating={5} value={userRating} onRate={(_, data) => {setUserRating(data.rating)}}/> 
+                        <Rating size="huge" icon='star' maxRating={5} value={userRating} onRate={(_, data) => {setUserRating(data.rating)}}/> 
                     </Form.Field>
                     <Form.Field>
                         <Input placeholder="Write your review here" value={review} onChange={event => setReview(event.target.value)}/>
                     </Form.Field>
-                    <SubmitBtn><Button variant="default"style={{background: "#9FFFCB" }} onClick={submitReview}>Submit</Button></SubmitBtn>
+                    <SubmitBtn><Button color='blue' variant="default" onClick={submitReview}>Submit</Button></SubmitBtn>
                 </Form>
                 {props.children}    
             </ReviewForm>             
@@ -88,12 +90,17 @@ const ReviewForm = styled.div `
     border-radius: 10px;
 `
 
+const Top = styled.div`
+    display: flex;  
+    margin-bottom: 0px; 
+`
+
 const CloseBtn = styled.div`
     margin-top: 0px; 
     margin-bottom: 10px;  
-    margin-left: 645px;   
+    margin-left: 400px;   
 `
 const SubmitBtn = styled.div`
     margin-top = 10px;  
-    margin-left: 600px;
+    margin-left: 590px;
 `

@@ -15,7 +15,7 @@ export default function CrewCard({programCrew}){
      */
     const renderCard = (card, index) => {
         return (
-            <Card style={{ width: '10rem'}} key={index} className="cCard">
+            <Card style={{ width: '11rem'}} key={index} className="cCard">
                 <Card.Img variant="top" src={card.Image} style={{height: "200px"}} onClick={() => history.push('/crewdetails', {Cid: card.Cid})}/>
                 <Card.Body onClick={() => history.push('/crewdetails', {Cid: card.Cid})}>
                     <Card.Text style={{height: '0rem', marginLeft:'-10px'}} className="cardTitle">{card.Name}</Card.Text>

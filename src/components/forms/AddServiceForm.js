@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import {Button} from 'react-bootstrap'
 import styled from 'styled-components'
-import {Form, Select} from 'semantic-ui-react'
+import {Form, Select, Button} from 'semantic-ui-react'
 
 export default function AddServiceForm(props){
     var Email = props.userEmail
@@ -66,10 +65,10 @@ export default function AddServiceForm(props){
                 <Form>
                     <Top>
                         <h2>Add a service</h2>
-                        <CloseBtn><Button variant="default"style={{background: "#9FFFCB"}} onClick={closeReview}>X</Button></CloseBtn>
+                        <CloseBtn><Button variant="default" onClick={closeReview} icon='close'></Button></CloseBtn>
                     </Top>
-                    <Select style={{marginLeft: "20px", width: "250px"}} options={selectOptions} placeholder='Select Service' onChange={event => setService(event.target.textContent)}/>
-                    <SubmitBtn><Button variant="default"style={{background: "#9FFFCB" }} onClick={addService}>Add</Button></SubmitBtn>
+                    <Select style={{marginLeft: "80px", width: "250px"}} options={selectOptions} placeholder='Select Service' onChange={event => setService(event.target.textContent)}/>
+                    <SubmitBtn><Button color='blue' variant="default" onClick={addService}>Add</Button></SubmitBtn>
                 </Form>
                 {props.children}    
             </ServiceForm>             
@@ -91,7 +90,7 @@ const Popup = styled.div `
 
 const ServiceForm = styled.div `
     position: relative; 
-    width: 400px; 
+    width: 455px; 
     padding: 10px;  
     background-color: white; 
     border-radius: 10px;
@@ -105,9 +104,9 @@ const Top = styled.div`
 const CloseBtn = styled.div`
     margin-top: 0px; 
     margin-bottom: 10px;  
-    margin-left: 200px;   
+    margin-left: 250px;   
 `
 const SubmitBtn = styled.div`
     margin-top = 10px;  
-    margin-left: 320px;
+    margin-left: 360px;
 `

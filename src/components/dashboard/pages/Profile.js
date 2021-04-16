@@ -6,7 +6,7 @@ import Dashboard from '../Dashboard'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import styled from 'styled-components'
-import { Details } from '@material-ui/icons';
+//import { Details } from '@material-ui/icons';
 
 export default function Profile() {
     var user = firebase.auth().currentUser;
@@ -29,7 +29,7 @@ export default function Profile() {
             {userDetails.map(details => (
                 <div>
                     <Header>
-                        <h1 className="pageHeader">My Profile</h1>
+                        <h1>My Profile</h1>
                     </Header>
 
                     <div>
@@ -37,33 +37,21 @@ export default function Profile() {
                             <img style={{ width: "160px", height: "160px" }} src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fb/UofCCoat.svg/1200px-UofCCoat.svg.png" alt="" />
                         </Image>
                         <Email><h2>{userEmail}</h2></Email>
-                        <ChangeBtn><Button>Change Password</Button></ChangeBtn>
-                        <Box1>
+                        {/*<ChangeBtn><Button>Change Password</Button></ChangeBtn>*/}
+                        <Box>
                             <Title>
-                                <h3>Pesonal Information </h3>
+                                <h3 style={{marginTop: "30px"}}>Pesonal Information: </h3>
                             </Title>
                             <Text>
-                                <h6>Name: {details.Name}</h6>
-                                <h6>Username: {details.Username}</h6>
-                                <h6>Age: {details.Age}</h6>
-                                <h6>Gender: {details.Gender}</h6>
-                                <h6>Languages: {details.Language}</h6>
-                                <h6 style={{ marginLeft: "30px" }}>English</h6>
-                                <h6 style={{ marginLeft: "30px" }}>French</h6>
+                                <h5 style={{marginTop: "0px"}}>Name: {details.Name}</h5>
+                                <h5 style={{marginTop: "0px"}}>Username: {details.Username}</h5>
+                                <h5 style={{marginTop: "0px"}}>Age: {details.Age}</h5>
+                                <h5 style={{marginTop: "0px"}}>Gender: {details.Gender}</h5>
+                                <h5 style={{marginTop: "0px"}}>Languages: {details.Language}</h5>
                             </Text>
 
                             <EditLink><Link to="/profile-edit">Edit Information</Link></EditLink>
-                        </Box1>
-                        {/*<Box2>
-                    <Title>
-                        <h3>Languages</h3>
-                    </Title>
-                    <Text>
-                        <h6>English</h6>
-                        <h6>French</h6>
-                    </Text>
-                    <EditLink><Link>Edit Languages</Link></EditLink>
-                </Box2>*/}
+                        </Box>
                     </div>
                 </div>
             ))}
@@ -91,23 +79,13 @@ const ChangeBtn = styled.div`
 `
 
 /**Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
-const Box1 = styled.div`
+const Box = styled.div`
     margin-top: 50px; 
     border-radius: 10px;
     box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
     margin-left: 400px; 
     background: white;
-    height: 260px; 
-    width: 800px; 
-`
-
-const Box2 = styled.div`
-    margin-top: 50px; 
-    border-radius: 10px;
-    box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
-    margin-left: 400px; 
-    background: white;
-    min-height: 120px; 
+    height: 210px; 
     width: 800px; 
 `
 
@@ -118,8 +96,8 @@ const Title = styled.div`
     margin-left: 20px;
 `
 const Text = styled.div`
-    margin-top: 20px;
-    margin-left: 40px;
+    margin-top: 10px;
+    margin-left: 60px;
 `
 const EditLink = styled(Link)`
     margin-left: 650px; 

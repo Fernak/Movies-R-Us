@@ -4,9 +4,12 @@ import ProgramCard from '../../cards/ProgramCard'
 import CrewCard from '../../cards/CrewCard'
 import styled from 'styled-components'
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default function Favourites() {
-    //Need to pass in email of user logged in 
-    var userEmail = 'dennis.scott@email.com'
+    const user = firebase.auth().currentUser
+    var userEmail = user.email
 
     const [favCrew, setFavCrew] = useState([]);
     const [favMovies, setFavMovies] = useState([]); 

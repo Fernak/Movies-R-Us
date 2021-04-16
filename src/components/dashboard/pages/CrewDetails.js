@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import Dashboard from '../Dashboard'
-import { Button } from 'react-bootstrap'
+import {Button} from 'semantic-ui-react'
 import styled from 'styled-components'
 import ProgramCard from '../../cards/ProgramCard'
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default function CrewDetails(props) {
+    const user = firebase.auth().currentUser
+    var userEmail = user.email
+    var Cid = props.location.state['Cid']
+    var favCrew = [] 
+    var favStatus
+
     const [crewDetails, setCrewDetails] = useState([])
     const [crewPrograms, setCrewPrograms] = useState([])
     const [crewRoles, setCrewRoles] = useState([])
-
-    var Cid = props.location.state['Cid']
+    const [userFavCrew, setUserFavCrew] = useState([]); 
 
     useEffect(() => {
         fetch(`/crewdetails?Cid=${Cid}`).then(response =>
@@ -21,13 +29,68 @@ export default function CrewDetails(props) {
             });
     }, []);
 
+    useEffect(()=>{
+        fetch(`/userfavs?Email=${userEmail}`).then(response => 
+            response.json()).then(data => { 
+                setUserFavCrew(data['favouritecrew'])
+            }); 
+    }, []); 
+
+    /**Getting the Uid of all the user favourited movies */
+    for (var i=0; i<userFavCrew.length; i++){
+            favCrew.push(userFavCrew[i]['Cid'])
+    }
+    
+    //Checking if the program has already been added to the user's favourite 
+    if (favCrew.includes(Cid)){
+        favStatus = true; 
+    }
+    else {
+        favStatus = false; 
+    } 
+
+    async function addOrRemoveFavourite(){
+        /*Request to add to user reviews  */
+        if (favStatus == false){ 
+            const request = {
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ Email: userEmail,  Uid: '', Cid: Cid})
+            }
+            console.log(request)
+            const response = await fetch('/userfavs', request); 
+            if (response.ok){
+                console.log('Added to favourites added')
+                alert('Crew has been successfully added to your favourites')      
+            } else{
+                console.log('Not successful')
+            }
+            favStatus = true
+        }
+        else{
+            const request = {
+                method: 'DELETE', 
+                headers: { 'Content-Type': 'application/json' },
+            }
+            const response = await fetch(`/userfavs?Email=${userEmail}&Cid=${Cid}`, request); 
+            if (response.ok){
+                console.log('Removed from favourtes')
+                alert('Crew has been successfully removed from your favourites')
+                console.log(response)
+            } else{
+                console.log('Remove not successful')
+            }
+            favStatus = false; 
+        } 
+    }
+
     return (
         <>
             <Dashboard />
             {crewDetails.map(details => (
                 <div>
                     <Top>
-                        <Image><img style={{ width: "200px", height: "300px" }} src={details.Image} alt="" /></Image>
+                        <Image><img style={{width: "240px", height: "330px"}} src={details.Image} alt="" /></Image>
                         <div style={{ marginLeft: "50px" }}>
                             <Title><h1>{details.Name}</h1></Title>
                             <div>
@@ -40,7 +103,7 @@ export default function CrewDetails(props) {
                             </div>
                         </div>
                     </Top>
-                    <AddFavBtn><Button>Add To Favourites</Button></AddFavBtn>
+                    <AddFavBtn><Button color='blue' style={{height: "40px"}} onClick={addOrRemoveFavourite}>Favourite</Button></AddFavBtn>
                     <Header><h2>Filmography</h2></Header>
                     <Scroll><ProgramCard programs={crewPrograms} /></Scroll>
                 </div>
@@ -78,7 +141,7 @@ const Image = styled.div`
     margin-right: 0px;   
 `
 const AddFavBtn = styled.div`
-    margin-left: 270px; 
+    margin-left: 340px; 
     margin-top: 20px;
 `
 

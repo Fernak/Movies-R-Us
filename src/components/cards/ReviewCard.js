@@ -13,7 +13,7 @@ export default function ReviewCards({programReviews}){
             <div>
                 <Box>
                     <Top>
-                        <img style={{width: "40px", height: "40px", marginLeft: "15px"}} src={card.Image} alt=""/>   
+                        <img style={{width: "40px", height: "40px", marginLeft: "15px"}} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_yrd8qyMAeTKfxPH00Az2BqE561qnoB5Ulw&usqp=CAU' alt=""/>   
                         <div>
                             <h3 style={{marginTop: "0px", marginLeft: "10px", marginBottom: "0px"}}>{card.Author}</h3>
                             <div>
@@ -21,7 +21,7 @@ export default function ReviewCards({programReviews}){
                             </div>
                         </div>
                         <div>
-                            <h5 style={{marginTop: "0px", marginLeft: "550px", marginBottom: "0px"}}>{card.Date}</h5>
+                            <h5 style={{marginTop: "0px", marginLeft: "535px", marginBottom: "0px"}}>{card.Date}</h5>
                         </div>
                     </Top>
                     <Text>

@@ -54,8 +54,8 @@ export default function Dashboard() {
                     <SideBarItem path='/' label='Home' icon='home' />
                     <SideBarItem path='/movies' label='Movies' icon='film' />
                     <SideBarItem path='/tvshows' label='Television' icon='tv' />
-                    {/*<SideBarItem path='schedule' label='Schedule' icon='calendar alternate outline' />
-                    <SideBarItem path='/trending' label='Trending' icon='fire' />*/}
+                    <SideBarItem path='/schedule' label='Schedule' icon='calendar alternate outline' />
+                    {/*<SideBarItem path='/trending' label='Trending' icon='fire' />*/}
                     <Divider />
                     <SidebarHeader>Library</SidebarHeader>
                     {/**SideBarItem label='History' icon='history' />

@@ -15,10 +15,10 @@ import ProfileEdit from "./dashboard/pages/ProfileEdit"
 import Movies from "./dashboard/pages/Movies"
 import TVShows from "./dashboard/pages/TVShows"
 import Subscriptions from "./dashboard/pages/Subscriptions"
-import Trending from "./dashboard/pages/Trending"
 import Favourites from "./dashboard/pages/Favourites"
 import CrewDetails from "./dashboard/pages/CrewDetails"
 import ProgramDetails from "./dashboard/pages/ProgramDetails"
+import Schedule from "./dashboard/pages/Schedule"
 
 function App() {
   return (
@@ -33,10 +33,10 @@ function App() {
           <PrivateRoute exact path="/movies" component={Movies} />
           <PrivateRoute exact path="/tvshows" component={TVShows} />
           <PrivateRoute exact path="/subscriptions" component={Subscriptions} />
-          <PrivateRoute exact path="/trending" component={Trending} />
           <PrivateRoute exact path="/favourites" component={Favourites} />
           <PrivateRoute exact path="/crewdetails" component={CrewDetails} />
           <PrivateRoute exact path="/programdetails" component={ProgramDetails} />
+          <PrivateRoute exact path="/schedule" component={Schedule} />
           <Container
             className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "100vh" }}

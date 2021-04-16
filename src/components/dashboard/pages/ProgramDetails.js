@@ -6,20 +6,23 @@ import CrewCard from '../../cards/CrewCard'
 import ReviewCard from '../../cards/ReviewCard'
 import AddReviewForm from '../../forms/AddReviewForm'
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default function ProgramDetails(props) {
+    const user = firebase.auth().currentUser
+    var userEmail = user.email 
     var Uid = props.location.state['Uid']
-    //Need to pass in email of user logged in 
-    var userEmail = 'michael.miller@email.com'
+    var favStatus; 
+    var favPrograms = []
 
     const [addReviewBtn, setAddReviewBtn] = useState(false); 
     const [programDetails, setProgramDetails] = useState([]);
     const [programCrew, setProgramCrew] = useState([]); 
     const [programReviews, setProgramReviews] = useState([]); 
-
     const [userFavPrograms, setUserFavPrograms] = useState([]); 
+    
     //React JS - Toggle button: https://www.youtube.com/watch?v=artRW0PdPIY 
-    var favPrograms = []
-    console.log(programDetails)
 
     /**API call to get all details of a program and will split and store into three separate arrays. */
     useEffect(()=>{
@@ -28,44 +31,45 @@ export default function ProgramDetails(props) {
                 setProgramDetails([data['programinfo']]); 
                 setProgramCrew(data['programcrew'])
                 setProgramReviews(data['programreviews'])
-                //console.log(props.location.state); 
-                //console.log(props.location.state['state'])
             }); 
     }, []); 
 
+    //const [toggle, setToggle] = useState()
     /**Geting all programs that the user has favourited used to set the content of the favourite button */
     useEffect(()=>{
         fetch(`/userfavs?Email=${userEmail}`).then(response => 
             response.json()).then(data => { 
                 setUserFavPrograms([...data['favouriteshows'], ...data['favouritemovies']])
-                console.log(userFavPrograms)
-                //console.log(favObj)
-                //console.log(favPrograms)
-                //console.log(favPrograms)
-                //console.log(props.location.state['state'])
             }); 
     }, []); 
 
     /**Getting the Uid of all the user favourited movies */
     for (var i=0; i<userFavPrograms.length; i++){
-        favPrograms.push({Uid: userFavPrograms[i]['Uid']})
+        favPrograms.push(userFavPrograms[i]['Uid'])
     }
-    console.log(favPrograms)
+
+    //Checking if the program has already been added to the user's favourite 
+    if (favPrograms.includes(Uid)){
+        favStatus = true; 
+    }
+    else {
+        favStatus = false; 
+    } 
+    
     //console.log(favPrograms)
-    //var initial = true; 
-    var initial; 
-        if (favPrograms.some(favs => favs.Uid === Uid)){
-            console.log("HIIII IM HEREEEEEE") 
-            initial = true
-        }
-        else {
-            initial = false
-            console.log("NOTTTT HEREEEEEE") 
-        }
-    const [toggle, setToggle] = useState(true)
-    //console.log(init())
+    /*if (favPrograms.some(favs => favs.Uid === Uid)){
+        console.log("HIIII IM HEREEEEEE") 
+        initial = true
+        setToggle(initial)
+    }
+    else {
+        initial = false
+        console.log("NOTTTT HEREEEEEE") 
+        console.log(initial)
+        setToggle(initial)
+    }*/ 
     //const [toggle, setToggle] = useState(() 
-    console.log(toggle)
+    //console.log(toggle)
     /**if (favPrograms.includes(Uid)){
             console.log("HIIII IM HEREEEEEE")
             return false
@@ -80,9 +84,8 @@ export default function ProgramDetails(props) {
 
     /** Favourite button even handler (handling button click) */
     async function addOrRemoveFavourite(){
-        /*Reuqest to add to user reviews  */
-        if (toggle == false){ 
-            //console.log('Will add to favourites')
+        /*Request to add to user reviews  */
+        if (favStatus == false){ 
             const request = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
@@ -92,16 +95,13 @@ export default function ProgramDetails(props) {
             const response = await fetch('/userfavs', request); 
             if (response.ok){
                 console.log('Added to favourites added')
-                alert('Program has been successfully added to your favourites')   
-                //favBtnStatus = 'Add To Favourites'     
+                alert('Program has been successfully added to your favourites')      
             } else{
                 console.log('Not successful')
             }
-            console.log(Uid)
+            favStatus = true
         }
         else{
-            console.log('Remove from favourites')
-            console.log(Uid)
             const request = {
                 method: 'DELETE', 
                 headers: { 'Content-Type': 'application/json' },
@@ -111,14 +111,11 @@ export default function ProgramDetails(props) {
                 console.log('Removed from favourtes')
                 alert('Program has been successfully removed from your favourites')
                 console.log(response)
-                //favBtnStatus = 'Add To Favourites'
             } else{
                 console.log('Remove not successful')
             }
-            //favBtnStatus = 'Add To Favourites'
+            favStatus = false; 
         } 
-        setToggle(!toggle)
-        console.log(toggle)
     }
 
     return (
@@ -145,30 +142,29 @@ export default function ProgramDetails(props) {
                                 </div>
                             </div>
                         </Top>
-                        <Container>
-                            <div style={{marginTop: "50px"}}>
-                                <RatingText><h3>Rating: {details.User_rating}/10</h3></RatingText>
-                                <AddFavBtn><Button onClick={addOrRemoveFavourite}>{toggle ? "Remove From Favourites" : "Add To Favourites"}</Button></AddFavBtn>
-                            </div>
-                            <div style={{marginLeft: "-280px", marginTop: "30px"}}>
-                                <h3 style={{marginLeft: "380px"}}>Streaming Service:</h3>
-                                <Box style={{marginTop: "0px"}}>
-                                    <Top>
-                                        <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "-160px", marginTop: "-50px"}} src={details.Logo} alt=""/>   
-                                        <div>
-                                            <Text style={{marginLeft: "20px", marginTop: "-35px"}}><h3>{details.Service_name}</h3></Text>
-                                        </div>
-                                    </Top>
-                                </Box>
-                            </div>
-                        </Container>
+                        <div style={{marginTop: "0px", float: "left"}}>
+                            <RatingText><h3>Rating: {details.User_rating}/10</h3></RatingText>
+                            {/*{toggle ? "Remove From Favourites" : "Add To Favourites"} */}
+                            <AddFavBtn><Button color='blue' onClick={addOrRemoveFavourite}>Favourite</Button></AddFavBtn>
+                        </div>
+                        <div style={{marginLeft: "200px", marginTop: "-10px"}}>
+                            <h3 style={{marginLeft: "380px"}}>Streaming Service:</h3>
+                            <Box style={{marginTop: "0px"}}>
+                                <Top>
+                                    <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "-160px", marginTop: "-50px"}} src={details.Logo} alt=""/>   
+                                    <div>
+                                        <Text style={{marginLeft: "20px", marginTop: "-35px"}}><h3>{details.Service_name}</h3></Text>
+                                    </div>
+                                </Top>
+                            </Box>
+                        </div>
                         <Header><h2>Synopsis</h2></Header>
                         <SynopText>
                             <h4>{details.Description}</h4>
                         </SynopText>
                         <Header><h2>Crew</h2></Header>
                         <Scroll><CrewCard programCrew={programCrew}/></Scroll>
-                        <Header><h2>Reviews <AddRevBtn><Button onClick={() => setAddReviewBtn(true)}>Add Review</Button></AddRevBtn></h2></Header>  
+                        <Header><h2>Reviews <AddRevBtn><Button color='blue' onClick={() => setAddReviewBtn(true)}>Add Review</Button></AddRevBtn></h2></Header>  
                         <ReviewCard programReviews={programReviews}/>
                         {/*References opening a review popup form: Build a POPUP component in React JS ~ A Beginner Tutorial with React https://www.youtube.com/watch?v=i8fAO_zyFAM */}
                         <AddReviewForm trigger={addReviewBtn} setTrigger={setAddReviewBtn} Uid={Uid} userEmail={userEmail} onAddedReview={newReview => setProgramReviews(currentReviews => [...currentReviews, newReview])}/>
@@ -193,30 +189,28 @@ export default function ProgramDetails(props) {
                         </div>
                     </div>
                 </Top>
-                <Container>
-                    <div style={{marginTop: "50px"}}>
-                        <RatingText><h3>Rating: {details.User_rating}/10</h3></RatingText>
-                        <AddFavBtn><Button onClick={addOrRemoveFavourite}>{toggle ? "Remove From Favourites" : "Add To Favourites"}</Button></AddFavBtn>
-                    </div>
-                    <div style={{marginLeft: "-280px", marginTop: "30px"}}>
-                        <h3 style={{marginLeft: "380px"}}>Streaming Service:</h3>
-                        <Box style={{marginTop: "0px"}}>
-                            <Top>
-                                <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "-160px", marginTop: "-50px"}} src={details.Logo} alt=""/>   
-                                <div>
-                                    <Text style={{marginLeft: "20px", marginTop: "-35px"}}><h3>{details.Service_name}</h3></Text>
-                                </div>
-                            </Top>
-                        </Box>
-                    </div>
-                </Container>
+                <div style={{marginTop: "0px", float: "left"}}>
+                    <RatingText><h3>Rating: {details.User_rating}/10</h3></RatingText>
+                    <AddFavBtn><Button color='blue' onClick={addOrRemoveFavourite}>Favourite</Button></AddFavBtn>
+                </div>
+                <div style={{marginLeft: "200px", marginTop: "-10px"}}>
+                    <h3 style={{marginLeft: "380px"}}>Streaming Service:</h3>
+                    <Box style={{marginTop: "0px"}}>
+                        <Top>
+                            <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "-160px", marginTop: "-50px"}} src={details.Logo} alt=""/>   
+                            <div>
+                                <Text style={{marginLeft: "20px", marginTop: "-35px"}}><h3>{details.Service_name}</h3></Text>
+                            </div>
+                        </Top>
+                    </Box>
+                </div>
                 <Header><h2>Synopsis</h2></Header>
                 <SynopText>
                     <h4>{details.Description}</h4>
                 </SynopText>
                 <Header><h2>Crew</h2></Header>
                 <Scroll><CrewCard programCrew={programCrew}/></Scroll>
-                <Header><h2>Reviews <AddRevBtn><Button onClick={() => setAddReviewBtn(true)}>Add Review</Button></AddRevBtn></h2></Header>
+                <Header><h2>Reviews <AddRevBtn><Button color='blue' onClick={() => setAddReviewBtn(true)}>Add Review</Button></AddRevBtn></h2></Header>
                 <ReviewCard programReviews={programReviews}/>
                 <AddReviewForm trigger={addReviewBtn} setTrigger={setAddReviewBtn} Uid={Uid} userEmail={userEmail} onAddedReview={newReview => setProgramReviews(currentReviews => [...currentReviews, newReview])}/>
             </div>
@@ -235,7 +229,7 @@ const Box = styled.div`
     border-radius: 10px;
     box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
     margin-left: 400px; 
-    background: #E0E8E4;
+    background: #DADADA;
     height: 100px; 
     width: 300px; 
 `

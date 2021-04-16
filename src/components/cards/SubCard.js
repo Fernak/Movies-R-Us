@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
-export default function SubCard({services, userEmail, onRemovedService}){
-    var Email = userEmail
-
+export default function SubCard({services, userEmail, onRemovedService, adminStatus}){
+    
     async function removeService(serviceName){
         const request = {
             method: 'DELETE', 
@@ -26,24 +25,43 @@ export default function SubCard({services, userEmail, onRemovedService}){
      *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
      */
     const renderCard = (card, index) => {
-        return (
-            <div>
-                <Box>
-                    <Top>
-                        <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "15px", marginTop: "10px"}} src={card.Logo} alt=""/>   
-                        <div>
-                            <h3 style={{marginTop: "15px", marginLeft: "15px", marginBottom: "0px"}}>{card.Service_name}</h3>
-                            <Text>
-                                <h6>{card.Location}</h6>
-                                <h6>{card.Price} /month</h6>
-                            </Text>
-                        </div>
-                    </Top>
-                    <RemoveLink><Link onClick={() => removeService(card.Service_name)}>Remove Subscription</Link></RemoveLink>
-                </Box>
-            </div>
-        ); 
-    }; 
+        if(adminStatus == false){
+            return (
+                <div>
+                    <Box>
+                        <Top>
+                            <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "20px", marginTop: "15px"}} src={card.Logo} alt=""/>   
+                            <div>
+                                <h3 style={{marginTop: "15px", marginLeft: "15px", marginBottom: "0px"}}>{card.Service_name}</h3>
+                                <Text>
+                                    <h6>{card.Location}</h6>
+                                    <h6>{card.Price} /month</h6>
+                                </Text>
+                            </div>
+                        </Top>
+                        <RemoveLink><Link onClick={() => removeService(card.Service_name)}>Remove Subscription</Link></RemoveLink>
+                    </Box>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Box>
+                        <Top>
+                            <img style={{width: "60px", height: "60px", borderRadius: "10px", marginLeft: "20px", marginTop: "15px"}} src={card.Logo} alt=""/>   
+                            <div>
+                                <h3 style={{marginTop: "15px", marginLeft: "15px", marginBottom: "0px"}}>{card.Service_name}</h3>
+                                <Text>
+                                    <h6>{card.Location}</h6>
+                                    <h6>{card.Price} /month</h6>
+                                </Text>
+                            </div>
+                        </Top>
+                    </Box>
+                </div>
+            )
+        }
+    }
     return <div>{services.map(renderCard)}</div>; 
 }; 
 
@@ -61,7 +79,7 @@ const Box = styled.div`
     border-radius: 10px;
     box-shadow: 0px 12px 18px -6px rgba(0, 0, 0, 0.3);  
     margin-left: 400px; 
-    background: #FAEAE6;
+    background: #DADADA;
     height: 140px; 
     width: 800px; 
 `
