@@ -1,7 +1,14 @@
+/**
+ * Movies page: 
+ *  * General user: 
+ *      * Shows all tv shows that are offered by streaming services the user is subscribed to 
+ *  * Admin user: 
+ *      * Shows all tv shows in the database 
+ */
 import React, {useEffect, useState} from 'react'
+import styled from 'styled-components'
 import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
-import styled from 'styled-components'
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -19,7 +26,7 @@ export default function TVShows() {
     const [tvshows, setTvshows] = useState([]); 
     const [allTvshows, setAllTvshows] = useState([])
 
-    //Getting list of all admin emails from API call 
+    //API call to get list of all admin emails
     useEffect(() => {
         fetch(`/admin`).then(response =>
             response.json()).then(data => {
@@ -27,7 +34,7 @@ export default function TVShows() {
             });
     }, []);
 
-    //Getting all programs that from services that the user is subscribed to from API call (will be used when user is not an admin) 
+    //API call to get all the tv shows that are from services that the user is subscribed to (will be used when user is not an admin) 
     useEffect(()=>{
         fetch(`/programs?Type=TV Show&Email=${userEmail}`).then(response => 
             response.json()).then(data => { 
@@ -35,7 +42,7 @@ export default function TVShows() {
             }); 
     }, []); 
 
-    // Getting all programs that exist in the database from API call (will be used when user is an admin)
+    // API call to get all tv shows that exist in the database (will be used when user is an admin)
     useEffect(() => {
         fetch(`/allprograms`).then(response =>
             response.json()).then(data => {
@@ -43,7 +50,7 @@ export default function TVShows() {
             });
     }, []);
 
-    // Checking if user logged in is an admin and display the corresponding results 
+    // Checking if user logged in is a general user and display the corresponding results (tvshows filtered by streaming services)
     if (!(admins.some(admin => admin.Email === userEmail))){
         return (
             <>
@@ -55,6 +62,7 @@ export default function TVShows() {
                 <ProgramCard programs={tvshows}/>
             </>
         )
+    // Displaying all tv shwos that exists in the database to an admin user 
     } else {
         return (
             <>
@@ -69,6 +77,9 @@ export default function TVShows() {
     }
 }
 
+/**
+ * TV Show UI styling 
+ */
 const Header = styled.div`
     margin-left: 240px; 
     margin-top: 10px;

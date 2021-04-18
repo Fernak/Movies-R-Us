@@ -1,10 +1,15 @@
+/**
+ * Profile Edit Page: 
+ *  * Shows a form where the user can edit their personal information 
+ */
 import React, { useRef, useState, useEffect } from 'react'
-import firebase from "firebase/app";
-import "firebase/auth";
-
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { Link, useHistory } from "react-router-dom"
 import Dashboard from '../Dashboard'
+
+import firebase from "firebase/app";
+import "firebase/auth";
+
 
 export default function ProfileEdit() {
     var user = firebase.auth().currentUser;
@@ -25,9 +30,9 @@ export default function ProfileEdit() {
     const languageRef = useRef()
     const [language, setLanguage] = useState('')
     const [error, setError] = useState('')
-    // const [loading, setLoading] = useState(false)
     const history = useHistory()
 
+    // API call to get all the infromation of the user (Info beofre edit/update)
     useEffect(() => {
         fetch(`/profile?Email=${userEmail}`).then(response =>
             response.json()).then(data => {
@@ -36,6 +41,7 @@ export default function ProfileEdit() {
             });
     }, []);
 
+    // Handling the click even of the edit profile button 
     async function updateUserDatabase(e) {
         e.preventDefault();
 
@@ -72,11 +78,8 @@ export default function ProfileEdit() {
             });
             setPassword(passwordRef.current.value)
         }
-        // console.log(age)
-        // console.log(name)
-        // console.log(username)
-        // console.log(userEmail)
-        // console.log(gender)
+
+        // Creating a equest object for the API call to update user information  
         const request = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -91,6 +94,7 @@ export default function ProfileEdit() {
             })
         }
         console.log(request)
+        // API call to update user information and to redirect back to the profile page when update was successful 
         await fetch('/profile-edit', request).then(response => {
             if (response.ok) {
                 console.log('User updated')
@@ -99,6 +103,7 @@ export default function ProfileEdit() {
         });
     }
 
+    // Profile edit page UI 
     return (
         <>
             <Dashboard />
@@ -124,10 +129,12 @@ export default function ProfileEdit() {
                                 <Form.Label>Age</Form.Label>
                                 <Form.Control type="text" ref={ageRef} />
                             </Form.Group>
+                            {/* Gender */}
                             <Form.Group id="gender">
                                 <Form.Label>Gender</Form.Label>
                                 <Form.Control type="text" ref={genderRef} />
                             </Form.Group>
+                            {/* Language */}
                             <Form.Group id="language">
                                 <Form.Label>Language</Form.Label>
                                 <Form.Control type="text" ref={languageRef} />

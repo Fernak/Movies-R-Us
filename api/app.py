@@ -1,3 +1,6 @@
+'''
+* Contains all API endpoints of the TV & MOVIE Streaming Service Lookup Web application 
+'''
 from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 import json
@@ -5,16 +8,24 @@ import json
 app = Flask(__name__)
 
 # Database configuration
+'''
+* References:  
+    * Connecting to a MySQL Database in Flask Using Flask-MySQLDB (2019): https://www.youtube.com/watch?v=51F_frStZCQ&t=515s
+'''
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Bubbledophins1201!'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'cpsc471_project_db'
+'''
+* References: 
+    * Using the DictCursor in Flask-MySQLDB: https://www.youtube.com/watch?v=wNUZyOXA66M 
+'''
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
 # ------------------Authentication Database Calls ---------------#
-
+# Add information of a new user 
 @app.route('/signup', methods=['POST'])
 def user_signup():
     requestObj = request.get_json()
@@ -29,6 +40,7 @@ def user_signup():
     mysql.connection.commit()
     return json.dumps({'message': 'User updated successfully!'})
 
+# Get information of a user
 @app.route('/profile', methods=['GET'])
 def get_user_details():
     if 'Email' in request.args:
@@ -40,7 +52,7 @@ def get_user_details():
     results = cur.fetchone()
     return {'userInfo': results}
 
-
+# Update information of a user 
 @app.route('/profile-edit', methods=['POST'])
 def update_user_details():
     requestObj = request.get_json()
@@ -59,6 +71,7 @@ def update_user_details():
     mysql.connection.commit()
     return json.dumps({'message': 'User updated successfully!'})
 
+# Get list of all users 
 @app.route('/allusers', methods=['GET'])
 def get_all_users():
     if 'Email' in request.args:
@@ -70,6 +83,7 @@ def get_all_users():
     results = cur.fetchall()
     return {'users': results}
 
+# Get list of all admin users 
 @app.route('/admin', methods=['GET'])
 def get_admin_list():
     cur = mysql.connection.cursor()
@@ -81,8 +95,8 @@ def get_admin_list():
 
 # ------------------Programs (Movies/Tvshows) Database Calls ---------------#
 
-# Getting list of all programs in the database 
-@app.route('/allprograms')
+# Get list of ALL programs (movies and tv shows)
+@app.route('/allprograms', methods=['GET'])
 def get_all_programs():
     cur = mysql.connection.cursor()
     cur.execute('''CALL getAllPrograms('Movie')''')
@@ -110,7 +124,7 @@ def get_programs():
     results = cur.fetchall()
     return jsonify(results)
 
-# Get details of a specific program
+# Get details of a specific program (details include program information, program crew members and program reviews)
 @app.route('/programdetails', methods=['GET'])
 def get_program_details():
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -141,7 +155,7 @@ def get_program_schedule():
     result2 = cur.fetchall()
     return {'comingsoon': result1, 'leavingsoon': result2}
 
-# Get list of all programs that are leaving or coming to the every streaming service
+# Get list of all programs that are leaving or coming to for ALL streaming service
 @app.route('/allprogramschedule', methods=['GET'])
 def get_all_programs_schedule():
     cur = mysql.connection.cursor()
@@ -155,15 +169,15 @@ def get_all_programs_schedule():
 
 # ------------------Crew Database Calls ---------------#
 
-# Getting list of all programs in the database 
-@app.route('/allcrew')
+# Getting list of ALL crew meembers
+@app.route('/allcrew', methods=['GET'])
 def get_all_crew():
     cur = mysql.connection.cursor()
     cur.execute('''CALL getAllCrew()''')
     results = cur.fetchall()
     return jsonify(results)
 
-# Get details of a specific crew member
+# Get details of a specific crew member (details include crew member info and crew member programs)
 @app.route('/crewdetails', methods=['GET'])
 def get_crew_details():
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -184,7 +198,7 @@ def get_crew_details():
 
 # ------------------Favourites Database Calls ---------------#
 
-# Get the all the shows that are favourited by a specific user
+# Get the shows that are favourited by a specific user
 @app.route('/userfavs', methods=['GET'])
 def get_user_fav():
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -247,7 +261,7 @@ def add_user_fav():
 
 # ------------------Reviews Database Calls ---------------#
 
-# Inserting new user review for a program
+# Add a new user review for a program
 @app.route('/userreview', methods=['POST'])
 def add_user_review():
     requestObj = request.get_json()
@@ -282,9 +296,7 @@ def get_user_subs():
     result = cur.fetchall()
     return jsonify(result)
 
-# Insert new subscribed service for the user
-
-
+# Add new subscribed service for the user
 @app.route('/usersubscriptions', methods=['POST'])
 def add_user_sub():
     requestObj = request.get_json()
@@ -299,8 +311,6 @@ def add_user_sub():
     return "Done!"
 
 # Remove a user subscription service
-
-
 @app.route('/usersubscriptions', methods=['DELETE'])
 def delete_user_sub():
     requestObj = request.get_json()
@@ -314,7 +324,7 @@ def delete_user_sub():
     cur.close()
     return "Done!"
 
-# Get list of all available streaming services
+# Get list of ALL available streaming services
 @app.route('/services', methods=['GET'])
 def get_all_services():
     # Referenced https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#understanding-our-database-powered-api to get parameter
@@ -324,6 +334,7 @@ def get_all_services():
     return jsonify(result)
 
 # ----------------------End of Services Calls---------------------- #
+
 
 if __name__ == "__main__":
     app.run(debug=True)

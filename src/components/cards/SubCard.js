@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+/**
+ * Subscription Card: 
+ *  Shows each streaming service as a box component 
+ */
+import React from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
 export default function SubCard({services, userEmail, onRemovedService, adminStatus}){
     
+    /**
+     * Handling the click event of the remove subscription link. That is, removing a specific service from the users list of subscribed services 
+     */
     async function removeService(serviceName){
+        // Creating an object which consists of the name of the service to be removed 
         const request = {
             method: 'DELETE', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Email: userEmail, Service_name: serviceName})
         }
+        // API call to remove service from user's list 
         const response = await fetch('/usersubscriptions', request); 
         if (response.ok){
             console.log('Service has been removed')
@@ -19,12 +28,15 @@ export default function SubCard({services, userEmail, onRemovedService, adminSta
             console.log('Not successful')
         }
     }
+
     /**
+     * Rendering each service in the list of user subscritpions each as an individual box component
      * References: 
-     * To populate each card with information from card content object: 
-     *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
+     *  * To populate each card with information from card content object: 
+     *      * Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
      */
     const renderCard = (card, index) => {
+        // Checking if the user logged in is not an admin user (will be given the option of remove services from list )
         if(adminStatus == false){
             return (
                 <div>
@@ -43,6 +55,7 @@ export default function SubCard({services, userEmail, onRemovedService, adminSta
                     </Box>
                 </div>
             )
+        // If admin user, will only diplay the services but will not be given the option or remove a service 
         } else {
             return (
                 <div>
@@ -66,6 +79,7 @@ export default function SubCard({services, userEmail, onRemovedService, adminSta
 }; 
 
 /*
+ * Subscription box component UI styling 
  * References: 
  *  To create box for every subscription service: 
  *      Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
@@ -91,7 +105,7 @@ const Text = styled.div`
     margin-left: 30px; 
     margin-top: 15px; 
 `
-/**650 */
+
 const RemoveLink = styled(Link) `
     margin-left: 650px; 
 `

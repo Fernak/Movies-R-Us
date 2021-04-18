@@ -1,7 +1,11 @@
+/**
+ * Program Details Page: 
+ *  * Shows all the details of a specific program (this includes the program information, crew members, and reviews)
+ */
 import React, {useState, useEffect} from 'react'
-import Dashboard from '../Dashboard'
 import {Button} from 'semantic-ui-react'
 import styled from 'styled-components'
+import Dashboard from '../Dashboard'
 import CrewCard from '../../cards/CrewCard'
 import ReviewCard from '../../cards/ReviewCard'
 import AddReviewForm from '../../forms/AddReviewForm'
@@ -12,6 +16,10 @@ import "firebase/auth";
 export default function ProgramDetails(props) {
     const user = firebase.auth().currentUser
     var userEmail = user.email 
+    /**
+     * References: 
+     *  * Getting the Uid that was passed to this page during redirecting: 
+     *      * https://reactrouter.com/web/api/location*/ 
     var Uid = props.location.state['Uid']
     var favStatus; 
     var favPrograms = []
@@ -21,10 +29,8 @@ export default function ProgramDetails(props) {
     const [programCrew, setProgramCrew] = useState([]); 
     const [programReviews, setProgramReviews] = useState([]); 
     const [userFavPrograms, setUserFavPrograms] = useState([]); 
-    
-    //React JS - Toggle button: https://www.youtube.com/watch?v=artRW0PdPIY 
 
-    /**API call to get all details of a program and will split and store into three separate arrays. */
+    // API call to get all details of a program (details include program info, program crew members and program reviews)
     useEffect(()=>{
         fetch(`/programdetails?Uid=${Uid}`).then(response => 
             response.json()).then(data => { 
@@ -34,8 +40,7 @@ export default function ProgramDetails(props) {
             }); 
     }, []); 
 
-    //const [toggle, setToggle] = useState()
-    /**Geting all programs that the user has favourited used to set the content of the favourite button */
+    // API call to get all programs that the user has favourited (used to set the status of the favourite button)
     useEffect(()=>{
         fetch(`/userfavs?Email=${userEmail}`).then(response => 
             response.json()).then(data => { 
@@ -43,7 +48,7 @@ export default function ProgramDetails(props) {
             }); 
     }, []); 
 
-    /**Getting the Uid of all the user favourited movies */
+    //Getting the Uid of all the user favourited programs 
     for (var i=0; i<userFavPrograms.length; i++){
         favPrograms.push(userFavPrograms[i]['Uid'])
     }
@@ -55,36 +60,10 @@ export default function ProgramDetails(props) {
     else {
         favStatus = false; 
     } 
-    
-    //console.log(favPrograms)
-    /*if (favPrograms.some(favs => favs.Uid === Uid)){
-        console.log("HIIII IM HEREEEEEE") 
-        initial = true
-        setToggle(initial)
-    }
-    else {
-        initial = false
-        console.log("NOTTTT HEREEEEEE") 
-        console.log(initial)
-        setToggle(initial)
-    }*/ 
-    //const [toggle, setToggle] = useState(() 
-    //console.log(toggle)
-    /**if (favPrograms.includes(Uid)){
-            console.log("HIIII IM HEREEEEEE")
-            return false
-            //console.log(favBtnStatus)
-        }
-        else {
-            console.log(true)
-            return true
-           // console.log(favBtnStatus)
-        } */ 
-   //console.log(toggle)
 
-    /** Favourite button even handler (handling button click) */
+    // Handling the click event of the Favourite button
     async function addOrRemoveFavourite(){
-        /*Request to add to user reviews  */
+        //Request to add program to user reviews  
         if (favStatus == false){ 
             const request = {
                 method: 'POST', 
@@ -101,6 +80,7 @@ export default function ProgramDetails(props) {
             }
             favStatus = true
         }
+        // Request to remove program from user favourites 
         else{
             const request = {
                 method: 'DELETE', 
@@ -118,11 +98,13 @@ export default function ProgramDetails(props) {
         } 
     }
 
+    // Program details UI 
     return (
         <>
             <Dashboard/>
             <h1></h1>
             {programDetails.map(details => {
+                // Check if the program is a movie and display the corresponding details 
                 if (details.Type == 'Movie'){
                     return (
                         <div>
@@ -170,6 +152,7 @@ export default function ProgramDetails(props) {
                         <AddReviewForm trigger={addReviewBtn} setTrigger={setAddReviewBtn} Uid={Uid} userEmail={userEmail} onAddedReview={newReview => setProgramReviews(currentReviews => [...currentReviews, newReview])}/>
                     </div>
                 )}
+                // Checking if the program is a tv show and displaying the corresponding results 
                 else if(details.Type == 'TV Show'){
                     return(
                         <div>
@@ -219,6 +202,7 @@ export default function ProgramDetails(props) {
     )
 }
 
+// Program details UI styling 
 const Box = styled.div`
     margin-top: 30px; 
     margin-bottom: 20px; 
@@ -238,12 +222,6 @@ const Top = styled.div`
     display: flex; 
     margin-top: 50px;
     margin-left: 180px; 
-`
-
-const Container = styled.div`
-    display: flex; 
-    margin-top: -40px;
-    margin-left: 10px; 
 `
 
 const Title = styled.div `

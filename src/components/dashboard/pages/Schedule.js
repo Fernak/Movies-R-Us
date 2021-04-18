@@ -1,3 +1,10 @@
+/**
+ * Schdeule Page: 
+ *  * General user: 
+ *      * Shows all the programs that are coming to or leaving the streaming services that the user is subscribed to 
+ *  * Admin user: 
+ *      * Shows all program that are coming to or leaving any streaming service within the database 
+ */
 import React, {useState, useEffect} from 'react'
 import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
@@ -16,7 +23,7 @@ export default function Schedule() {
     const [allComingPrograms, setAllComingPrograms] = useState([])
     const [allLeavingPrograms, setAllLeavingPrograms] = useState([])
 
-    //Getting list of all admin emails from API call 
+    // API call to get the list of all admin emails 
     useEffect(() => {
         fetch(`/admin`).then(response =>
             response.json()).then(data => {
@@ -24,8 +31,7 @@ export default function Schedule() {
             });
     }, []);
 
-    // Getting programs that are coming are leaving soon that are offered by services the user logged in is subscribed 
-    //to from API call (will be used when user is not an admin)
+    // API call to get programs that are coming are leaving soon that are offered by services the user logged in is subscribed (will be used when user is not an admin)
     useEffect(() => {
         fetch(`/userprogramschedule?Email=${userEmail}`).then(response =>
             response.json()).then(data => {
@@ -34,7 +40,7 @@ export default function Schedule() {
             });
     }, []);
 
-    // Getting all programs that are coming are leaving soon that are offered by services from API call (will be used when user is an admin)
+    // API call to get all programs that are coming are leaving soon that are offered by any service (will be used when user is an admin)
     useEffect(() => {
         fetch(`/allprogramschedule`).then(response =>
             response.json()).then(data => {
@@ -43,7 +49,7 @@ export default function Schedule() {
             });
     }, []);
 
-    // Checking if user logged in is an admin and display the corresponding results 
+    // Checking if user logged in is a general user and display the corresponding results (filtered programs by subscribed services)
     if (!(admins.some(admin => admin.Email === userEmail))){
         return (
             <>
@@ -58,6 +64,7 @@ export default function Schedule() {
                 <Scroll><ProgramCard programs={userLeavingPrograms}/></Scroll>
             </>
         )
+    // Displaying all programs that are coming to and leaving any service to the admin user 
     } else {
         return (
             <>
@@ -75,6 +82,9 @@ export default function Schedule() {
     }
 }
 
+/**
+ * Schedule UI styling 
+ */
 const Header = styled.div`
     margin-left: 240px; 
     margin-top: 70px;

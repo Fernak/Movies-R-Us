@@ -1,11 +1,17 @@
+/**
+ * Movies page: 
+ *  * General user: 
+ *      * Shows all movies that are offered by streaming services the user is subscribed to 
+ *  * Admin user: 
+ *      * Shows all movies in the database 
+ */
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
-import styled from 'styled-components'
 
 import firebase from "firebase/app";
 import "firebase/auth";
-
 
 export default function Movies() {
     const user = firebase.auth().currentUser;
@@ -20,7 +26,7 @@ export default function Movies() {
     const [userMovies, setUserMovies] = useState([])
     const [allMovies, setAllMovies] = useState([])
 
-    //Getting list of all admin emails from API call 
+    // API call to get list of all admin emails
     useEffect(() => {
         fetch(`/admin`).then(response =>
             response.json()).then(data => {
@@ -28,7 +34,7 @@ export default function Movies() {
             });
     }, []);
 
-    //Getting all programs that from services that the user is subscribed to from API call (will be used when user is not an admin) 
+    // API call to get all programs that from services the user is subscribed to (will be used when user is not an admin) 
     useEffect(() => {
         fetch(`/programs?Type=Movie&Email=${userEmail}`).then(response =>
             response.json()).then(data => {
@@ -36,7 +42,7 @@ export default function Movies() {
             });
     }, []);
 
-    // Getting all programs that exist in the database from API call (will be used when user is an admin)
+    // API call to get all programs that exist in the database (will be used when user is an admin)
     useEffect(() => {
         fetch(`/allprograms`).then(response =>
             response.json()).then(data => {
@@ -44,7 +50,7 @@ export default function Movies() {
             });
     }, []);
 
-    // Checking if user logged in is an admin and display the corresponding results 
+    // Checking if user logged in is aa general user and display the corresponding results (movies filtered by streaming services)
     if (!(admins.some(admin => admin.Email === userEmail))){
         return (
             <>
@@ -56,6 +62,7 @@ export default function Movies() {
                 <ProgramCard programs={userMovies} />
             </>
         )
+    // Displaying all movies in the database 
     } else {
         return (
             <>
@@ -70,6 +77,9 @@ export default function Movies() {
     }
 }
 
+/**
+ * Movies page UI styling 
+ */
 const Header = styled.div`
     margin-left: 240px; 
     margin-top: 10px;

@@ -1,6 +1,5 @@
 /*
- * References: 
- *  To create grid for card layout: Make A Grid Of Boxes In CSS | 2020 https://www.youtube.com/watch?v=fKlimmu1pPM 
+ * Styling of the individual program card and crew card components. 
  */
  
  .pCard{ 
@@ -21,6 +20,10 @@
     background-color:#ebebeb;
 }
 
+/*
+ * References: 
+ *  To create grid for card layout: Make A Grid Of Boxes In CSS | 2020 https://www.youtube.com/watch?v=fKlimmu1pPM 
+ */
 .grid {
     min-height: 100%;
     margin-left: 260px;
@@ -68,7 +71,6 @@
     background-color:#ebebeb;
     transform: scale(1.08);
 }
-
 
 .row {
     margin-left: 20px;

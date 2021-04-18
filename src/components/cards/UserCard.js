@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+/**
+ * User Card: 
+ *  Shows each user that is using the system as a box component (for admin view)
+ */
+import React from 'react'
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
 
 export default function UserCard({users}){
     /**
+     * Rendering each user in the list of users each as an individual box component
      * References: 
      * To populate each card with information from card content object: 
      *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
@@ -30,6 +34,7 @@ export default function UserCard({users}){
 }; 
 
 /*
+ * User box component UI styling 
  * References: 
  *  To create box for every subscription service: 
  *      Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
@@ -54,8 +59,4 @@ const Top = styled.div`
 const Text = styled.div`
     margin-left: 30px; 
     margin-top: 15px; 
-`
-/**650 */
-const RemoveLink = styled(Link) `
-    margin-left: 650px; 
 `

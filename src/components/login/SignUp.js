@@ -1,3 +1,7 @@
+/**
+ * SignUp Page 
+ *  * Shows the page where a new user can create an account by entering a username, email and password (Uses firebase authentication)
+ */
 import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
@@ -13,6 +17,9 @@ export default function SignUp() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
+    /**
+     * Handling submit event 
+     */
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -31,6 +38,9 @@ export default function SignUp() {
         setLoading(false)
     }
 
+    /**
+     * Handling the click event of the sign up button. Will create an object and add the new user information to the database
+     */
     async function addToDatabase() {
         const request = {
             method: 'POST',
@@ -41,6 +51,7 @@ export default function SignUp() {
                 Password: passwordRef.current.value
             })
         }
+        // API call to add new user to the database 
         const response = await fetch('/signup', request);
         if (response.ok) {
             console.log('Review added')
@@ -50,6 +61,7 @@ export default function SignUp() {
         }
     }
 
+    // SignUp UI 
     return (
         <>
             <Card>

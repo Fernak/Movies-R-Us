@@ -1,10 +1,12 @@
+/**
+ * Initialization of all the routes and path names of the different pages of the web application 
+ */
 import React from "react"
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import PrivateRoute from "./PrivateRoute";
 
-import Dashboard from "./dashboard/Dashboard"
 import SignUp from "./login/SignUp"
 import Login from "./login/Login"
 import ForgotPassword from "./login/ForgotPassword"
@@ -23,11 +25,9 @@ import SearchPage from "./dashboard/pages/SearchPage"
 
 function App() {
   return (
-
     <Router>
       <AuthProvider>
         <Switch>
-          {/*<PrivateRoute exact path="/" component={Dashboard} />*/}
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />

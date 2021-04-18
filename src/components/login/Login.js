@@ -1,3 +1,7 @@
+/**
+ * Login Page: 
+ *  * Shows the page where user can input their account email and password 
+ */
 import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
@@ -11,6 +15,9 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
+    /**
+     * Handling the click even of the Log in button (Uses firebase authentication)
+     */
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -25,6 +32,9 @@ export default function Login() {
         setLoading(false)
     }
 
+    /**
+     * Login UI 
+     */
     return (
         <>
             <Card>

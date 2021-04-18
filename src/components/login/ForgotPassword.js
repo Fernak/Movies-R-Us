@@ -1,3 +1,7 @@
+/**
+ * Forgot Password Page: 
+ *  Shows the page where a user can reset their password from the login page. (Uses firebase authentication)
+ */
 import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
@@ -10,6 +14,9 @@ export default function ForgotPassword() {
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
 
+    /**
+     * Handling the click event of the reset password button 
+     */
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -27,6 +34,9 @@ export default function ForgotPassword() {
         setLoading(false)
     }
 
+    /**
+     * Forgot Password UI 
+     */
     return (
         <>
             <Card>

@@ -1,8 +1,15 @@
+/**
+ * Home page: 
+ *  * General user: 
+ *      * Shows all movies and tv shows that exist in the database 
+ *  * Admin user: 
+ *      * Shows the list of all users and the number of users that are using the system 
+ */
 import React, {useState, useEffect} from 'react'
+import styled from 'styled-components'
 import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
 import UserCard from '../../cards/UserCard'
-import styled from 'styled-components'
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -16,7 +23,7 @@ export default function Home() {
     const [movies, setMovies] = useState([]);
     const [tvshows, setTvshows] = useState([]);
 
-    //Getting list of all admin emails from API call 
+    // API call to get the list of all admin emails 
     useEffect(() => {
         fetch(`/admin`).then(response =>
             response.json()).then(data => {
@@ -24,7 +31,7 @@ export default function Home() {
             });
     }, []);
 
-    // Getting all programs that exist in the database from API call 
+    // API call to get all programs that exist in the database 
     useEffect(() => {
         fetch(`/allprograms`).then(response =>
             response.json()).then(data => {
@@ -33,7 +40,7 @@ export default function Home() {
             });
     }, []);
 
-    // Getting all users that exist in the database from API call if admin 
+    // API call to get all users that exist in the database (will be displayed in admin home page)
     useEffect(() => {
         fetch(`/allusers?Email=${userEmail}`).then(response =>
             response.json()).then(data => {
@@ -41,8 +48,7 @@ export default function Home() {
             });
     }, []);
 
-
-    // Checking if user logged in is an admin and display the corresponding results 
+    // Check if user logged in is a general user and display the corresponding results (all movies and tv shows)
     if (!(admins.some(admin => admin.Email === userEmail))){
         return (
             <>
@@ -57,6 +63,7 @@ export default function Home() {
                 <Scroll><ProgramCard programs={tvshows}/></Scroll>
             </>
         )
+    // Displaying list of all users and the number of users for the admin home page 
     } else {
         return (
             <>
@@ -75,6 +82,9 @@ export default function Home() {
     }
 }
 
+/**
+ * Home page UI styling 
+ */
 const Header = styled.div`
     margin-left: 240px; 
     margin-top: 70px;

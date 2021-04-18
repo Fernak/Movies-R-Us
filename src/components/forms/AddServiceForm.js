@@ -1,4 +1,8 @@
-import React, {useState, useEffect} from 'react'
+/**
+ * Add Service Form popup 
+ *  * Popup componenet that is displayed when the user clicks on the "Add Service" button on the subscription page 
+ */
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import {Form, Select, Button} from 'semantic-ui-react'
 
@@ -10,7 +14,8 @@ export default function AddServiceForm(props){
 
     const [service, setService] = useState('')
 
-    /* Generating the list of services the user can add. 
+    /**Generating the list of services the user has not added to their account and and can be added. Will be used to 
+     * populate the drop-down select menu. 
        References: 
         * Checking if an a certain value is within in any of the objects in the array list 
             * https://www.tutorialrepublic.com/faq/how-to-check-if-an-array-includes-an-object-in-javascript.php */
@@ -21,28 +26,30 @@ export default function AddServiceForm(props){
         }
     }
 
+    // Handling the click event of the "x" button on the popup (will close popup)
     function closeReview(){
         props.setTrigger(false)
         setService('')
     }
-    var serviceAdded = allServices.find(object => object.Service_name == service)
-    console.log(serviceAdded)
+
     /*
+     * Handling the click event of the "Add" button on the popup (popup will close and newly added service will be dislayed on the screen)
      * Creating request object and getting reponse from API after adding a user review to a certain movie 
      * Flask Movie API Example: https://www.youtube.com/watch?v=Urx8Kj00zsI
      */
     async function addService(){
-        console.log(service)
-        
+        // Checking to make a streaming service from the drop-down menu has been selected 
         if (service == ''){
             alert('Error! Please select a service from the list')
         } 
+        // Creating a request object with Email of the user and the service selected by the user 
         else{
             const request = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ Email: Email, Service_name: service})
             }
+            // API call to add a new service for the user 
             const response = await fetch('/usersubscriptions', request); 
             if (response.ok){
                 console.log('Service added')
@@ -56,7 +63,9 @@ export default function AddServiceForm(props){
             }
         }    
     }
-    /*References: 
+    /** 
+     * Add Service popup UI 
+     * References: 
         * Creating a add review popup form where users can add a review: 
             * Build a POPUP component in React JS ~ A Beginner Tutorial with React https://www.youtube.com/watch?v=i8fAO_zyFAM */
     return (props.trigger)?(
@@ -76,6 +85,9 @@ export default function AddServiceForm(props){
     ) : ""; 
 }; 
 
+/**
+ * Add Service popup UI styling 
+ */
 const Popup = styled.div `
     display: flex; 
     justify-content: center; 

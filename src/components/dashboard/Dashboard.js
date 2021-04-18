@@ -1,8 +1,12 @@
+/**
+ * Dashboard 
+ *  * Shows the top navigation bar along with the side bar 
+ */
 import React, { useState, useRef } from 'react'
 import { Nav, Navbar, Form, Alert } from 'react-bootstrap'
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import { Input, Label, Menu, Button, Divider } from 'semantic-ui-react'
+import {Menu, Button, Divider } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import SideBarItem from "./SideBarItem"
@@ -13,7 +17,9 @@ export default function Dashboard() {
     const history = useHistory()
     const searchRef = useRef()
 
-
+    /**
+     * Handling the click event of the Logout button 
+     */
     async function handleLogout() {
         setError('')
 
@@ -25,16 +31,23 @@ export default function Dashboard() {
         }
     }
 
+    /**
+     * Handles the submit event of the search bar on the tap navigation bar. That is, whenever the user types in the search bar 
+     * and hits the enter key, the user will be redirected to the search results page 
+     */
     async function handleSubmit(e) {
         if(e.key === 'Enter'){
             e.preventDefault()   
-            console.log("Made it")
             console.log(searchRef.current.value)
             history.push('/search-page', {Input: searchRef.current.value})
 
         }
         
     }
+
+    /**
+     * Dashboard UI 
+     */
     return (
         <Container>
             <Header>
@@ -80,7 +93,9 @@ export default function Dashboard() {
     )
 }
 
-
+/**
+ * Dashboard UI styling 
+ */
 const Container = styled.div``;
 
 const Header = styled.div`

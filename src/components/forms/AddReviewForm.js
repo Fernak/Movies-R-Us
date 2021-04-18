@@ -1,3 +1,7 @@
+/**
+ * Add Review Form popup 
+ *  * Popup componenet that is displayed when the user clicks on the "Add Review" button on the program details page
+ */
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import {Form, Input, Rating, Button} from 'semantic-ui-react'
@@ -9,6 +13,7 @@ export default function AddReviewForm(props){
     var Uid = props.Uid
     var Email = props.userEmail 
 
+    // Handling the click event of the "x" button on the popup (will close the popup and reset the rating and decription values)
     function closeReview(){
         props.setTrigger(false)
         setUserRating(0)
@@ -16,21 +21,28 @@ export default function AddReviewForm(props){
     }
 
     /*
-     * Creating request object and getting reponse from API after adding a user review to a certain movie 
-     * Flask Movie API Example: https://www.youtube.com/watch?v=Urx8Kj00zsI
+     * Handling the click event of the "Submit" button on the popup (popup will close and newly added review will be dislayed on the screen)
+     * References: 
+     *  * Creating request object and getting reponse from API after adding a user review to a certain movie: 
+     *      * Flask Movie API Example: https://www.youtube.com/watch?v=Urx8Kj00zsI
      */
     async function submitReview(){
+        // Checking to make sure description field of an review is NOT empty 
         if (review == ''){
             console.log('error! Description cannot be empty')
             alert('Description field cannot be empty!')
         } 
+        // Creating a request object with info and the review inputs entered by the user 
         else{
             const request = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ Uid: Uid, Email: Email, Rating: userRating, Description: review})
             }
-            // Referenced: Handling response status using fetch in react JS
+            /**
+             * API call to add a new review of a specific program 
+             * References: 
+             *  * Handling response status using fetch in react JS: https://jasonwatmore.com/post/2020/02/01/react-fetch-http-post-request-examples*/ 
             await fetch('/userreview', request).then(response => {
                 if (response.ok){
                     return response.json()
@@ -45,7 +57,9 @@ export default function AddReviewForm(props){
             setReview('')   
         }    
     }
-    /*References: 
+    /*
+     * Add Review popup UI 
+     * References: 
         * Creating a add review popup form where users can add a review: 
             * Build a POPUP component in React JS ~ A Beginner Tutorial with React https://www.youtube.com/watch?v=i8fAO_zyFAM */
     return (props.trigger)?(
@@ -70,6 +84,9 @@ export default function AddReviewForm(props){
     ) : ""; 
 }; 
 
+/**
+ * Add review popup UI styling 
+ */
 const Popup = styled.div `
     display: flex; 
     justify-content: center; 

@@ -1,12 +1,14 @@
+/**
+ * Profile Page: 
+ *  * Shows all information of the user that is logged in 
+ */
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import Dashboard from '../Dashboard'
+
 import firebase from "firebase/app";
 import "firebase/auth";
-
-import Dashboard from '../Dashboard'
-import { Link } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
-import styled from 'styled-components'
-//import { Details } from '@material-ui/icons';
 
 export default function Profile() {
     var user = firebase.auth().currentUser;
@@ -14,6 +16,7 @@ export default function Profile() {
 
     const [userDetails, setUserDetails] = useState([]);
 
+    // API call to get all inforation of a specific user 
     useEffect(() => {
         fetch(`/profile?Email=${userEmail}`).then(response =>
             response.json()).then(data => {
@@ -23,6 +26,7 @@ export default function Profile() {
             });
     }, []);
 
+    // Profile Page UI 
     return (
         <>
             <Dashboard />
@@ -49,7 +53,6 @@ export default function Profile() {
                                 <h5 style={{marginTop: "0px"}}>Gender: {details.Gender}</h5>
                                 <h5 style={{marginTop: "0px"}}>Languages: {details.Language}</h5>
                             </Text>
-
                             <EditLink><Link to="/profile-edit">Edit Information</Link></EditLink>
                         </Box>
                     </div>
@@ -59,6 +62,9 @@ export default function Profile() {
     )
 }
 
+/**
+ * Profile page UI styling 
+ */
 const Header = styled.div`
     margin-left: 240px; 
     margin-top: 10px;
@@ -78,7 +84,10 @@ const ChangeBtn = styled.div`
     margin-top: 20px;
 `
 
-/**Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
+/**
+ * References: 
+ *  * Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 
+ * */
 const Box = styled.div`
     margin-top: 50px; 
     border-radius: 10px;
@@ -89,8 +98,10 @@ const Box = styled.div`
     width: 800px; 
 `
 
-/**Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 */
-
+/**
+ * References: 
+ *  * Build a Recipe App With React | React Tutorial For Beginners https://www.youtube.com/watch?v=U9T6YkEDkMo&list=PLDyQo7g0_nsVHmyZZpVJyFn5ojlboVEhE&index=2 
+ * */
 const Title = styled.div`
     margin-top: 30px;
     margin-left: 20px;
@@ -102,6 +113,3 @@ const Text = styled.div`
 const EditLink = styled(Link)`
     margin-left: 650px; 
 `
-const Info = styled.div`
-
-`;

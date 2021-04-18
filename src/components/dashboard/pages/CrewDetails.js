@@ -1,7 +1,11 @@
+/**
+ * Crew details page: 
+ *  * Shows all information of a specific crew member. Includes crew member information and programs the crew member is involved in
+ */
 import React, {useState, useEffect} from 'react'
-import Dashboard from '../Dashboard'
 import {Button} from 'semantic-ui-react'
 import styled from 'styled-components'
+import Dashboard from '../Dashboard'
 import ProgramCard from '../../cards/ProgramCard'
 
 import firebase from "firebase/app";
@@ -19,6 +23,7 @@ export default function CrewDetails(props) {
     const [crewRoles, setCrewRoles] = useState([])
     const [userFavCrew, setUserFavCrew] = useState([]); 
 
+    //API call to get all details of a specific crew member. Crew member is identified by a unique Cid. 
     useEffect(() => {
         fetch(`/crewdetails?Cid=${Cid}`).then(response =>
             response.json()).then(data => {
@@ -29,6 +34,7 @@ export default function CrewDetails(props) {
             });
     }, []);
 
+    //API call to get a list of call the crew members favourtied by the user logged in. 
     useEffect(()=>{
         fetch(`/userfavs?Email=${userEmail}`).then(response => 
             response.json()).then(data => { 
@@ -36,12 +42,12 @@ export default function CrewDetails(props) {
             }); 
     }, []); 
 
-    /**Getting the Uid of all the user favourited movies */
+    //Getting the Cid of all the user favourited crew members 
     for (var i=0; i<userFavCrew.length; i++){
             favCrew.push(userFavCrew[i]['Cid'])
     }
     
-    //Checking if the program has already been added to the user's favourite 
+    //Checking if the crew member has already been added to the user's favourite 
     if (favCrew.includes(Cid)){
         favStatus = true; 
     }
@@ -49,8 +55,9 @@ export default function CrewDetails(props) {
         favStatus = false; 
     } 
 
+    // Handling the click event of the favourite button 
     async function addOrRemoveFavourite(){
-        /*Request to add to user reviews  */
+        // Request to add the crew member to user favourites 
         if (favStatus == false){ 
             const request = {
                 method: 'POST', 
@@ -67,6 +74,7 @@ export default function CrewDetails(props) {
             }
             favStatus = true
         }
+        // Request to remove crew member from user's favourites 
         else{
             const request = {
                 method: 'DELETE', 
@@ -76,7 +84,6 @@ export default function CrewDetails(props) {
             if (response.ok){
                 console.log('Removed from favourtes')
                 alert('Crew has been successfully removed from your favourites')
-                console.log(response)
             } else{
                 console.log('Remove not successful')
             }
@@ -84,6 +91,7 @@ export default function CrewDetails(props) {
         } 
     }
 
+    // Crew details page UI
     return (
         <>
             <Dashboard />
@@ -112,6 +120,9 @@ export default function CrewDetails(props) {
     )
 }
 
+/**
+ * Crew details UI styling 
+ */
 const Top = styled.div`
     display: flex; 
     margin-top: 80px;

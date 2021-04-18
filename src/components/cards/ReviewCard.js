@@ -1,12 +1,17 @@
+/**
+ * Review Card: 
+ *  * Shows each review of a program as a box component 
+ */
 import React from 'react'
 import styled from 'styled-components'
 import {Rating} from 'semantic-ui-react'
 
 export default function ReviewCards({programReviews}){
     /**
+     * Rendering each creview in the list of reviews each as an individual box component
      * References: 
-     * To populate each card with information from card content object: 
-     *      Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
+     *  * To populate each card with information from card content object: 
+     *      * Dynamically Create Cards In ReactJS Using React-Bootstrap https://www.youtube.com/watch?v=IhWFs0diAPE
      */
     const renderCard = (card, index) => {
         return (
@@ -34,6 +39,9 @@ export default function ReviewCards({programReviews}){
     return <div>{programReviews.map(renderCard)}</div>; 
 }; 
 
+/**
+ * Review Box component styling 
+ */
 const Top = styled.div`
     display: flex;  
     margin-bottom: 0px; 
