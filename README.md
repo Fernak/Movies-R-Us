@@ -48,6 +48,9 @@ For the system we created, we have 2 different sets of users. One of them being 
 ## Contact
 
 For this project we had three members who designed and built this project out.  All three are listed below, contact for more information.
+
+<br/>
+
 Nolan Deutsch - nolandeutsch@gmail.com
 Joshua Diwa - joshua.diwa1@ucalgary.ca
 Tiffany Tang - tiffany.tang1@ucalgary.ca
