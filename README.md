@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://github.com/Fernak/Movies-R-Us/tree/main/Readme">
-    <img src="/Readme/homepage.png" alt="Logo" width="150" height="150">
+    <img src="/Readme/homepage.png" alt="Logo" width="100%" height="150">
   </a>
 
   <h3 align="center">Movies R-Us Webapp</h3>
