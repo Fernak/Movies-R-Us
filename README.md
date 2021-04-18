@@ -21,11 +21,12 @@ With the rise of streaming today, it is common for one to manually search throug
 
 Here's what we did:
 * The users login with Firebase 
-* Create a custom API using Python, Flask, and MySql 
+* Custom API using Python, Flask, and MySql 
 * React Js for the front end Website
 
-
-
+<p align="center">
+For the system we created, we have 2 different sets of users. One of them being a general user, and the other being an administrator. At first, the general user can view all movies and tv shows that are stored within the database. This means that they can see programs that are not offered by the streaming services they are subscribed to. This is because the purpose of our system is to not only to allow users to be able to find out what programs the services they are subscribed to offers, but to also allow them to see which services are offering a program that they would like to watch which are not offered by their subscribed services. With that, the user can then filter all those movies and tv shows, each in a separate section of the system. This filter is based on the list of services they are subscribed to that the user has added to their account. The administrator would have the same functionalities as a regular user, except that they will not have the option to filter programs based on subscription services but can just see all the movies and tv shows that are in the database. They also have the ability to see a list of all streaming services that are within the database and would also have access to the number of users that use the system (a count), and the information on the list of all those users. 
+</p>
 
 <!-- Languages and Tools -->
 ### Languages and Tools:
@@ -43,13 +44,10 @@ Here's what we did:
 
 <br />
 
-<!-- CONTRIBUTING -->
-## Creators
-
-For this project we had three members who designed and built this project out.  All three are listed below, contact for more information.
-
 <!-- CONTACT -->
 ## Contact
+
+For this project we had three members who designed and built this project out.  All three are listed below, contact for more information.
 Nolan Deutsch - nolandeutsch@gmail.com
 Joshua Diwa - joshua.diwa1@ucalgary.ca
 Tiffany Tang - tiffany.tang1@ucalgary.ca
