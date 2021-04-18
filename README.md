@@ -6,7 +6,7 @@
   </a>
 
   <h2 align="center">Movies R-Us Webapp</h2>
-  <h4 align="center">CPSC 471 Project</h4>
+  <h3 align="center">CPSC 471 Project</h3>
 </p>
 
 <!-- ABOUT THE PROJECT -->
