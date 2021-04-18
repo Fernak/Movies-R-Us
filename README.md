@@ -9,17 +9,13 @@
 </p>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
-
 <p align="center">
   <a href="https://github.com/Fernak/Movies-R-Us/tree/main/Readme">
     <img src="/Readme/homepage.png" alt="Logo" width="100%" height="500">
   </a>
-
-  <h3 align="center">Movies R-Us Webapp</h3>
 </p>
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+With the rise of streaming today, it is common for one to manually search through streaming services they know of, hoping that at least one will offer the program they are looking for. However, it is not always successful as the services that are chosen to be searched through will not always offer that certain movie or tv show. And with the increase in the number of available streaming services, it is not possible for one to know of all of them. As a result, the system we have designed is a website that is meant to tackle this issue many people face today. This report goes on to describe the process that we went through to design this system. That is, covering the problem we wanted to solve and how we could fix it with our design, what type of users it is developed for, and the diagrams and models used to help us develop the structure of our implementation. That is, how we would implement our databases for this system and how we actually implemented it in reality, along with the documentation of how the API for the system works. This report also includes a quick user guide of how a user can learn to use the functionalities that the system offers.
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
