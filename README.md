@@ -51,8 +51,8 @@ For this project we had three members who designed and built this project out.  
 
 <br/>
 
-Nolan Deutsch - nolandeutsch@gmail.com
-Joshua Diwa - joshua.diwa1@ucalgary.ca
-Tiffany Tang - tiffany.tang1@ucalgary.ca
+* Nolan Deutsch - nolandeutsch@gmail.com
+* Joshua Diwa - joshua.diwa1@ucalgary.ca
+* Tiffany Tang - tiffany.tang1@ucalgary.ca
 
 Project Link: [https://github.com/Fernak/Movies-R-Us.git](https://github.com/Fernak/Movies-R-Us.git)
