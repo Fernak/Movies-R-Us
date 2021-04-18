@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Fernak/Movies-R-Us/tree/main/Readme">
-    <img src="Movies_R-Us.png" alt="Logo" width="80" height="80">
+    <img src="/Readme/Movies_R-Us.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
