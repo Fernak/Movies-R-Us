@@ -11,14 +11,11 @@
 <!-- ABOUT THE PROJECT -->
 <p align="center">
   <a href="https://github.com/Fernak/Movies-R-Us/tree/main/Readme">
-    <img src="/Readme/homepage.png" alt="Logo" width="100%" height="500">
+    <img src="/Readme/homepage.png" alt="Logo" width="100%" height="25%">
   </a>
 </p>
 <p align="center">
-With the rise of streaming today, it is common for one to manually search through streaming services they know of, hoping that at least one will offer the program they are looking for. However, it is not always successful as the services that are chosen to be searched through will not always offer that certain movie or tv show. And with the increase in the number of available streaming services, it is not possible for one to know of all of them. 
-</p>
-<p align="center">
-As a result, the system we have designed is a website that is meant to tackle this issue many people face today. This report goes on to describe the process that we went through to design this system. That is, covering the problem we wanted to solve and how we could fix it with our design, what type of users it is developed for, and the diagrams and models used to help us develop the structure of our implementation. That is, how we would implement our databases for this system and how we actually implemented it in reality, along with the documentation of how the API for the system works. This report also includes a quick user guide of how a user can learn to use the functionalities that the system offers.
+With the rise of streaming today, it is common for one to manually search through streaming services they know of, hoping that at least one will offer the program they are looking for. However, it is not always successful as the services that are chosen to be searched through will not always offer that certain movie or tv show. And with the increase in the number of available streaming services, it is not possible for one to know of all of them. To combat this fact, we have designed a website that is meant to tackle this issue.
 </p>
 
 Here's why:
@@ -28,11 +25,10 @@ Here's why:
 
 Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
 
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
 
 <!-- Languages and Tools -->
 ### Languages and Tools:
-<p style="background-color: white;">
+
 <img align="left" alt="Visual Studio Code" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />
 <img align="left" alt="React" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
 <img align="left" alt="Python" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png" />
@@ -43,7 +39,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 <img align="left" alt="Git" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" />
 <img align="left" alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />
 <img align="left" alt="Terminal" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terminal/terminal.png" />
-</p>
+
 <br />
 
 
@@ -139,22 +135,3 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 * [JVectorMap](http://jvectormap.com)
 * [Font Awesome](https://fontawesome.com)
 
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
