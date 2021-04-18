@@ -11,7 +11,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](<img src="/Readme/Movies_R-Us.png" alt="Logo" width="150" height="150">)
+<p align="center">
+  <a href="https://github.com/Fernak/Movies-R-Us/tree/main/Readme">
+    <img src="/Readme/homepage.png" alt="Logo" width="150" height="150">
+  </a>
+
+  <h3 align="center">Movies R-Us Webapp</h3>
+</p>
 
 There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
