@@ -76,17 +76,12 @@ export default function Dashboard() {
                     <SideBarItem path='/movies' label='Movies' icon='film' />
                     <SideBarItem path='/tvshows' label='Television' icon='tv' />
                     <SideBarItem path='/schedule' label='Schedule' icon='calendar alternate outline' />
-                    {/*<SideBarItem path='/trending' label='Trending' icon='fire' />*/}
                     <Divider />
                     <SidebarHeader>Library</SidebarHeader>
-                    {/**SideBarItem label='History' icon='history' />
-                    <SideBarItem path='Watch later' label='Watch later' icon='clock' />*/}
                     <SideBarItem path='favourites' label='Favourites' icon='favorite' />
                     <Divider />
                     <SideBarItem path='/subscriptions' label='Subscriptions' icon='shopping cart' />
                     <Divider />
-                    {/*<SideBarItem path='Help' label='Help' icon='help circle' />
-                    <SideBarItem path='Send Feedback' label='Send feedback' icon='comment' />*/}
                 </Menu>
             </StyledSideNav>
         </Container>
