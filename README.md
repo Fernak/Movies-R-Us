@@ -5,7 +5,7 @@
     <img src="/Readme/Movies_R-Us.png" alt="Logo" width="250" height="250">
   </a>
 
-  <h3 align="center">Movies R-Us Webapp</h3>
+  <h2 align="center">Movies R-Us Webapp</h2>
   <h4 align="center">CPSC 471 Project</h4>
 </p>
 
