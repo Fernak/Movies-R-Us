@@ -6,6 +6,7 @@
   </a>
 
   <h3 align="center">Movies R-Us Webapp</h3>
+  <h4 align="center">CPSC 471 Project</h4>
 </p>
 
 <!-- ABOUT THE PROJECT -->
@@ -18,12 +19,12 @@
 With the rise of streaming today, it is common for one to manually search through streaming services they know of, hoping that at least one will offer the program they are looking for. However, it is not always successful as the services that are chosen to be searched through will not always offer that certain movie or tv show. And with the increase in the number of available streaming services, it is not possible for one to know of all of them. To combat this fact, we have designed a website that is meant to tackle this issue.
 </p>
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
+Here's what we did:
+* The users login with Firebase 
+* Create a custom API using Python, Flask, and MySql 
+* React Js for the front end Website
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
+
 
 
 <!-- Languages and Tools -->
